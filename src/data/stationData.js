@@ -567,17 +567,8 @@ export const stationData = {
 };
 
 /**
- * Accessor Methods (API Ready Interface)
- * These abstraction helpers allow transparent drop-in replacement by FastAPI / REST / WebSocket endpoints.
+ * Centralized Summary Accessor
  */
-export function getStationById(stationId) {
-  const key = (stationId || "").toLowerCase();
-  return stationData[key] || null;
-}
-
-export function getAllStations() {
-  return [MAITRI, BHARATI];
-}
 
 export function getDigitalTwinSummary() {
   const totalPersonnel = MAITRI.crewCapacity.current + BHARATI.crewCapacity.current;
