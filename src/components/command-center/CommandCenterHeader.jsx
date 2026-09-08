@@ -52,11 +52,11 @@ export default function CommandCenterHeader({
         {/* Left: Mission Title & Subtitle */}
         <div className="space-y-1.5">
           <div className="flex items-center space-x-2.5">
-            <span className="text-xl sm:text-2xl font-sans" role="img" aria-label="India flag">
-              🇮🇳
-            </span>
+            <div className="p-1.5 rounded-md bg-cyan-950/80 border border-cyan-500/30 text-cyan-400">
+              <Compass className="w-5 h-5" />
+            </div>
             <div className="flex items-center space-x-2">
-              <h1 className="text-lg sm:text-2xl font-mono font-extrabold tracking-wider text-white uppercase text-glow-cyan">
+              <h1 className="text-lg sm:text-2xl font-mono font-extrabold tracking-wider text-white uppercase">
                 ANTARCTIC OPERATIONS COMMAND CENTER
               </h1>
             </div>

@@ -1,4 +1,4 @@
-from config import GEMINI_API_KEY
+﻿from config import GEMINI_API_KEY
 
 SYSTEM_PROMPT = """You are POLARIS-AI, an expert AI telemetry diagnostics assistant for the Indian Antarctic Research Program (NCPOR).
 You monitor Maitri (Inland Oasis, 70°S) and Bharati (Coastal, 69°S) research stations.
@@ -45,4 +45,5 @@ Question / Instruction: {prompt if prompt else 'Provide an operational status di
         return response.text
     except Exception as e:
         return f"Gemini Analysis Error: {str(e)}"
+
 

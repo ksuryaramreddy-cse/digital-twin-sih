@@ -64,7 +64,7 @@ export default function StationHeroHeader({
               <Activity className="w-3.5 h-3.5 text-emerald-400" />
               <span>System Health</span>
             </div>
-            <div className="text-xl font-mono font-bold text-emerald-400 text-glow-emerald mt-1">
+            <div className="text-xl font-mono font-bold text-emerald-400 mt-1">
               {overallHealth}%
             </div>
             <span className="text-[10px] font-mono text-slate-500">Telemetry synced</span>

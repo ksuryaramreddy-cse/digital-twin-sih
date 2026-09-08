@@ -1,4 +1,4 @@
-"""
+﻿"""
 test_phase7a.py
 ===============
 Comprehensive automated test suite for Phase 7A:
@@ -267,3 +267,4 @@ if __name__ == "__main__":
         import traceback
         traceback.print_exc()
         sys.exit(1)
+

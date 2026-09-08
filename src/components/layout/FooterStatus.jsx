@@ -1,5 +1,6 @@
 import React from 'react';
-import { Radio, ShieldCheck, Cpu, HardDrive, Wifi, Compass } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ShieldCheck, Wifi } from 'lucide-react';
 
 export default function FooterStatus() {
   return (
@@ -24,11 +25,19 @@ export default function FooterStatus() {
           </div>
         </div>
 
-        {/* Right Station Details */}
-        <div className="flex items-center gap-4 text-[11px] text-slate-400">
-          <span className="text-slate-500">Maitri (70°45′S) ↔ Bharati (69°24′S): ~3,000 km</span>
+        {/* Right Station Details & Legal Links */}
+        <div className="flex flex-wrap items-center gap-4 text-[11px] text-slate-400">
+          <span className="text-slate-500 hidden xl:inline">Maitri (70°45′S) ↔ Bharati (69°24′S): ~3,000 km</span>
+          <span className="text-polar-700 hidden xl:inline">|</span>
+          <Link to="/privacy" className="hover:text-cyan-400 transition-colors">
+            Privacy Policy
+          </Link>
           <span className="text-polar-700">|</span>
-          <span className="text-cyan-400">POLAR TELEMETRY NODE #IND-02/03</span>
+          <Link to="/terms" className="hover:text-cyan-400 transition-colors">
+            Terms of Use
+          </Link>
+          <span className="text-polar-700">|</span>
+          <span className="text-cyan-400">NODE #IND-02/03</span>
         </div>
       </div>
     </footer>

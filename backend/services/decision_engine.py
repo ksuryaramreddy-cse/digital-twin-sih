@@ -1,4 +1,4 @@
-"""
+﻿"""
 decision_engine.py
 ===================
 Explainable Risk & Decision Intelligence Engine for AIP-DT Stations.
@@ -98,7 +98,7 @@ def _sanitize_for_json(obj: Any) -> Any:
 
 
 # ---------------------------------------------------------------------------
-# TASK 2 — Energy Risk Calculation
+# TASK 2 - Energy Risk Calculation
 # ---------------------------------------------------------------------------
 def calculate_energy_risk(
     current_station: dict,
@@ -183,7 +183,7 @@ def calculate_energy_risk(
 
 
 # ---------------------------------------------------------------------------
-# TASK 3 — Resource Risk Calculation
+# TASK 3 - Resource Risk Calculation
 # ---------------------------------------------------------------------------
 def calculate_resource_risk(
     current_station: dict,
@@ -266,7 +266,7 @@ def calculate_resource_risk(
 
 
 # ---------------------------------------------------------------------------
-# TASK 4 — Environmental Risk Calculation
+# TASK 4 - Environmental Risk Calculation
 # ---------------------------------------------------------------------------
 def calculate_environment_risk(
     current_station: dict,
@@ -362,7 +362,7 @@ def calculate_environment_risk(
 
 
 # ---------------------------------------------------------------------------
-# TASK 5 — Infrastructure Risk Calculation
+# TASK 5 - Infrastructure Risk Calculation
 # ---------------------------------------------------------------------------
 def calculate_infrastructure_risk(
     current_station: dict,
@@ -423,7 +423,7 @@ def calculate_infrastructure_risk(
 
 
 # ---------------------------------------------------------------------------
-# TASK 6 — Overall Risk Calculation
+# TASK 6 - Overall Risk Calculation
 # ---------------------------------------------------------------------------
 def calculate_overall_risk(
     energy_risk: dict,
@@ -483,7 +483,7 @@ def calculate_overall_risk(
 
 
 # ---------------------------------------------------------------------------
-# TASK 7 — Explainable Summary Generation
+# TASK 7 - Explainable Summary Generation
 # ---------------------------------------------------------------------------
 def generate_summary(
     overall_level: str,
@@ -525,7 +525,7 @@ def generate_summary(
 
 
 # ---------------------------------------------------------------------------
-# TASK 8 — Recommended Actions Generation
+# TASK 8 - Recommended Actions Generation
 # ---------------------------------------------------------------------------
 def generate_recommendations(
     overall_risk: str,
@@ -717,7 +717,7 @@ def generate_recommendations(
 
 
 # ---------------------------------------------------------------------------
-# TASK 9 — Public Entry Point
+# TASK 9 - Public Entry Point
 # ---------------------------------------------------------------------------
 def evaluate_station_decision(
     station_id: str,
@@ -798,3 +798,4 @@ def evaluate_station_decision(
     }
 
     return _sanitize_for_json(response)
+

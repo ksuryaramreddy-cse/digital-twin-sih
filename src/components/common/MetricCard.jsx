@@ -17,35 +17,30 @@ export default function MetricCard({
     cyan: {
       border: "border-cyan-500/20 hover:border-cyan-500/50",
       text: "text-cyan-400",
-      glow: "text-glow-cyan",
       bgIcon: "bg-cyan-950/60 text-cyan-400 border-cyan-500/30",
       progressBg: "bg-cyan-500"
     },
     sky: {
       border: "border-sky-500/20 hover:border-sky-500/50",
       text: "text-sky-400",
-      glow: "",
       bgIcon: "bg-sky-950/60 text-sky-400 border-sky-500/30",
       progressBg: "bg-sky-500"
     },
     emerald: {
       border: "border-emerald-500/20 hover:border-emerald-500/50",
       text: "text-emerald-400",
-      glow: "text-glow-emerald",
       bgIcon: "bg-emerald-950/60 text-emerald-400 border-emerald-500/30",
       progressBg: "bg-emerald-500"
     },
     amber: {
       border: "border-amber-500/20 hover:border-amber-500/50",
       text: "text-amber-400",
-      glow: "text-glow-amber",
       bgIcon: "bg-amber-950/60 text-amber-400 border-amber-500/30",
       progressBg: "bg-amber-500"
     },
     rose: {
       border: "border-rose-500/20 hover:border-rose-500/50",
       text: "text-rose-400",
-      glow: "text-glow-rose",
       bgIcon: "bg-rose-950/60 text-rose-400 border-rose-500/30",
       progressBg: "bg-rose-500"
     }
@@ -59,7 +54,7 @@ export default function MetricCard({
         <div className="space-y-1">
           <p className="text-xs font-mono uppercase tracking-wider text-slate-400">{title}</p>
           <div className="flex items-baseline space-x-1.5">
-            <span className={`text-2xl sm:text-3xl font-black font-mono tracking-tight ${scheme.text} ${scheme.glow}`}>
+            <span className={`text-2xl sm:text-3xl font-black font-mono tracking-tight ${scheme.text}`}>
               {value}
             </span>
             {unit && <span className="text-xs font-mono text-slate-400 font-semibold">{unit}</span>}

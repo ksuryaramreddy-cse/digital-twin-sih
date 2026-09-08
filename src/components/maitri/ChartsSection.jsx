@@ -43,7 +43,7 @@ export default function ChartsSection({ hourlyTrends = [] }) {
               Temperature • Fuel Consumption • Battery Charge • Power Demand
               {maitriHistory.length > 0 && (
                 <span className="ml-2 text-cyan-400">
-                  — LIVE · {maitriHistory.length} readings
+                  - LIVE · {maitriHistory.length} readings
                 </span>
               )}
             </p>

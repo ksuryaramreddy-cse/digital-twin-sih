@@ -33,10 +33,10 @@ export default function MaitriPage() {
       {/* 2. ENVIRONMENT */}
       <EnvironmentSection environment={data.environment} />
 
-      {/* 3. ENERGY — battery is editable */}
+      {/* 3. ENERGY - battery is editable */}
       <EnergySection energy={data.energy} onUpdate={updateMaitriField} />
 
-      {/* 4. RESOURCES — fuel and water are editable */}
+      {/* 4. RESOURCES - fuel and water are editable */}
       <ResourcesSection
         resources={data.resources}
         lakeData={data.lakePriyadarshini}
@@ -49,25 +49,25 @@ export default function MaitriPage() {
       {/* 6. ALERTS */}
       <AlertsSection initialAlerts={data.alerts} />
 
-      {/* 7. AI OPERATIONAL INTELLIGENCE — real IsolationForest results from local backend */}
+      {/* 7. AI OPERATIONAL INTELLIGENCE - real IsolationForest results from local backend */}
       <AnomalyIntelligenceCard
         anomalyData={maitriAnomaly}
         stationName="Maitri"
       />
 
-      {/* 8. PREDICTIVE FORECAST INTELLIGENCE — real 24H linear regression & SES trends */}
+      {/* 8. PREDICTIVE FORECAST INTELLIGENCE - real 24H linear regression & SES trends */}
       <PredictiveForecastCard
         forecastData={maitriForecast}
         stationName="Maitri"
       />
 
-      {/* 9. OPERATIONAL DECISION INTELLIGENCE — multi-engine risk synthesis & prioritized action directives */}
+      {/* 9. OPERATIONAL DECISION INTELLIGENCE - multi-engine risk synthesis & prioritized action directives */}
       <OperationalDecisionCard
         decisionData={maitriDecision}
         stationName="Maitri"
       />
 
-      {/* 10. WHAT-IF SCENARIO SIMULATOR — interactive deterministic scenario projections */}
+      {/* 10. WHAT-IF SCENARIO SIMULATOR - interactive deterministic scenario projections */}
       <ScenarioSimulator
         stationId="maitri"
         stationName="Maitri"

@@ -7,6 +7,7 @@ import {
   ShieldAlert,
   ArrowRight,
   Brain,
+  Building2,
   ListOrdered,
   Clock,
   CheckCircle2,
@@ -105,7 +106,7 @@ export default function PriorityStationCard({ priorityStation }) {
   const RiskIcon = riskConfig.icon;
   const riskScore = decision?.riskScore !== null && decision?.riskScore !== undefined
     ? Math.round(decision.riskScore)
-    : '—';
+    : '-';
   const priorityLevel = decision?.priority || 'P4 - ROUTINE';
   const summary = decision?.summary || 'Operational state undergoing routine telemetry monitoring.';
   const actions = Array.isArray(decision?.recommendedActions) ? decision.recommendedActions : [];
@@ -123,16 +124,17 @@ export default function PriorityStationCard({ priorityStation }) {
             <span className={`relative inline-flex rounded-full h-3 w-3 ${riskConfig.barColor}`} />
           </span>
           <span className="text-xs font-bold tracking-widest uppercase text-slate-200 flex items-center gap-1.5">
-            🚨 HIGHEST OPERATIONAL PRIORITY
+            <AlertTriangle className="w-4 h-4 text-amber-400" />
+            HIGHEST OPERATIONAL PRIORITY
           </span>
         </div>
 
         <div className="flex items-center space-x-2">
-          <span className={`px-3 py-1 rounded-full text-xs font-bold border ${riskConfig.badge} flex items-center gap-1.5`}>
+          <span className={`px-3 py-1 rounded-md text-xs font-bold border ${riskConfig.badge} flex items-center gap-1.5`}>
             <RiskIcon className="w-3.5 h-3.5" />
             {riskConfig.label}
           </span>
-          <span className="px-3 py-1 rounded-full text-xs font-bold bg-polar-950/80 border border-polar-750 text-slate-200">
+          <span className="px-3 py-1 rounded-md text-xs font-bold bg-polar-950/80 border border-polar-750 text-slate-200">
             {priorityLevel}
           </span>
         </div>
@@ -143,7 +145,7 @@ export default function PriorityStationCard({ priorityStation }) {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-2xl">🧊</span>
+              <Building2 className="w-6 h-6 text-cyan-400" />
               <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide uppercase">
                 {stationName} STATION
               </h2>

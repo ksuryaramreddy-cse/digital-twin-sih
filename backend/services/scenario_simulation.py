@@ -192,7 +192,8 @@ def simulate_station_scenario(
 
     # Additional stress drain if generator is overloaded
     if stress_level == "CRITICAL":
-        overload_drain = 0.40  # additional 0.4% per hour battery drain due to auxiliary shedding
+        deficit_ratio = max(0.0, stress_ratio - 1.0)
+        overload_drain = 0.40 + (deficit_ratio * 0.50)  # auxiliary shedding plus deficit bridge draw
     elif stress_level == "HIGH":
         overload_drain = 0.15
     else:
@@ -404,3 +405,4 @@ def simulate_station_scenario(
         "recommendations": recommendations,
         "assumptions": assumptions_logged,
     }
+

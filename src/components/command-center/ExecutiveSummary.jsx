@@ -6,6 +6,7 @@ import {
   ArrowRight,
   CheckCircle2,
   Brain,
+  Building2,
   Info,
 } from 'lucide-react';
 
@@ -64,9 +65,10 @@ export default function ExecutiveSummary({ priorityStation, readinessPercent = 0
               </span>
               <div className="flex items-center justify-between">
                 <span className="text-lg font-bold text-white uppercase flex items-center gap-1.5">
-                  🧊 {priorityStation.stationName} STATION
+                  <Building2 className="w-5 h-5 text-cyan-400" />
+                  {priorityStation.stationName} STATION
                 </span>
-                <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${
+                <span className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${
                   RISK_BADGES[priorityStation.decision.overallRisk?.toUpperCase()] || RISK_BADGES.LOW
                 }`}>
                   {priorityStation.decision.overallRisk || 'LOW'} RISK

@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+﻿from pymongo import MongoClient
 from config import MONGODB_URI, MONGODB_DB_NAME
 
 client = None
@@ -17,4 +17,5 @@ def get_database():
             print(f"MongoDB connection warning: {e}. Running with in-memory fallback.")
             db = None
     return db
+
 

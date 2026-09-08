@@ -8,8 +8,8 @@
  * overall risk assessment, and prioritized operational action directives.
  *
  * Props:
- *   decisionData {object|null} — Raw response from /api/v1/stations/{id}/decision
- *   stationName  {string}      — "Maitri" | "Bharati"
+ *   decisionData {object|null} - Raw response from /api/v1/stations/{id}/decision
+ *   stationName  {string}      - "Maitri" | "Bharati"
  *
  * States:
  *   - LOADING   (decisionData === null)
@@ -139,7 +139,7 @@ const CATEGORY_META = {
   energy: { label: 'ENERGY', icon: Zap, color: 'text-yellow-400' },
   resources: { label: 'RESOURCES', icon: Package, color: 'text-amber-400' },
   environment: { label: 'ENVIRONMENT', icon: CloudSnow, color: 'text-cyan-400' },
-  infrastructure: { label: 'INFRASTRUCTURE', icon: Cpu, color: 'text-purple-400' },
+  infrastructure: { label: 'INFRASTRUCTURE', icon: Cpu, color: 'text-blue-400' },
 };
 
 // ---------------------------------------------------------------------------
@@ -220,7 +220,7 @@ function LoadingState({ stationName }) {
         </div>
         <div>
           <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider">
-            🧠 Operational Decision Intelligence
+            Operational Decision Intelligence
           </h3>
           <p className="text-[11px] font-mono text-slate-400">
             {stationName ? `${stationName} Station • ` : ''}Synthesizing Multi-Sensor & Forecast Intelligence
@@ -254,14 +254,14 @@ function LearningState({ data, stationName }) {
           </div>
           <div className="min-w-0">
             <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider truncate">
-              🧠 Operational Decision Intelligence
+              Operational Decision Intelligence
             </h3>
             <p className="text-[11px] font-mono text-slate-400 truncate">
               {stationName} Station • Learning Operational Baseline
             </p>
           </div>
         </div>
-        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-full font-mono font-semibold border bg-sky-950/70 border-sky-500/40 text-sky-300 text-[11px] px-2.5 py-0.5">
+        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-md font-mono font-semibold border bg-sky-950/70 border-sky-500/40 text-sky-300 text-[11px] px-2.5 py-0.5">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-sky-400" />
@@ -348,7 +348,7 @@ function ActiveState({ data, stationName }) {
           </div>
           <div className="min-w-0">
             <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider truncate">
-              🧠 OPERATIONAL DECISION INTELLIGENCE
+              OPERATIONAL DECISION INTELLIGENCE
             </h3>
             <p className="text-[11px] font-mono text-slate-400 truncate">
               {stationName} Station • Situational Risk & Decision Protocol
@@ -358,7 +358,7 @@ function ActiveState({ data, stationName }) {
         </div>
 
         {/* Live Engine Indicator */}
-        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-full font-mono font-semibold border bg-emerald-950/70 border-emerald-500/40 text-emerald-300 text-[11px] px-2.5 py-1">
+        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-md font-mono font-semibold border bg-emerald-950/70 border-emerald-500/40 text-emerald-300 text-[11px] px-2.5 py-1">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
@@ -408,9 +408,9 @@ function ActiveState({ data, stationName }) {
               />
             </div>
             <div className="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>0 — Stable Routine</span>
-              <span>50 — Elevated Risk</span>
-              <span>100 — Critical Hazard</span>
+              <span>0 - Stable Routine</span>
+              <span>50 - Elevated Risk</span>
+              <span>100 - Critical Hazard</span>
             </div>
           </div>
 
@@ -438,7 +438,8 @@ function ActiveState({ data, stationName }) {
         <div className="space-y-3 pt-2">
           <div className="flex items-center justify-between">
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-              <span>⚡ PRIORITIZED OPERATIONAL ACTIONS</span>
+              <Zap className="w-3.5 h-3.5 text-cyan-400" />
+              <span>PRIORITIZED OPERATIONAL ACTIONS</span>
             </h4>
             <span className="text-[11px] font-mono text-slate-500">
               {actions.length} Action Directive{actions.length !== 1 ? 's' : ''}
@@ -485,7 +486,7 @@ function ActiveState({ data, stationName }) {
             <div className="bg-emerald-950/20 border border-emerald-500/30 rounded-xl p-4 flex items-center space-x-3 text-emerald-300">
               <CheckCircle className="w-5 h-5 flex-shrink-0 text-emerald-400" />
               <div className="text-xs font-mono">
-                <p className="font-bold">✓ No immediate intervention required.</p>
+                <p className="font-bold">No immediate intervention required.</p>
                 <p className="text-slate-400 text-[11px] mt-0.5">
                   Station subsystems are operating stably. Continue routine monitoring of station systems.
                 </p>
@@ -519,17 +520,17 @@ function ActiveState({ data, stationName }) {
 // Main Export
 // ---------------------------------------------------------------------------
 export default function OperationalDecisionCard({ decisionData, stationName = '' }) {
-  // STATE 1 — LOADING: no decision received yet
+  // STATE 1 - LOADING: no decision received yet
   if (decisionData === null || decisionData === undefined) {
     return <LoadingState stationName={stationName} />;
   }
 
-  // STATE 2 — LEARNING: engine is accumulating baseline samples
+  // STATE 2 - LEARNING: engine is accumulating baseline samples
   if (decisionData.status === 'LEARNING') {
     return <LearningState data={decisionData} stationName={stationName} />;
   }
 
-  // STATE 3 — ACTIVE: decision intelligence ready
+  // STATE 3 - ACTIVE: decision intelligence ready
   if (decisionData.status === 'ACTIVE') {
     return <ActiveState data={decisionData} stationName={stationName} />;
   }

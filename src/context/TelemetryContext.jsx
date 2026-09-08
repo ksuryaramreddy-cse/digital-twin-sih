@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
+﻿import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { MAITRI, BHARATI } from '../data/stationData';
 import { SIMULATION_SCENARIOS } from '../services/simulationService';
 
@@ -9,14 +9,14 @@ const MAITRI_API_BASE = (import.meta.env.VITE_API_URL || "https://maitri-backend
 // Bharati telemetry is served by its own dedicated Render deployment.
 const BHARATI_API_BASE = "https://bharati-station.onrender.com/api/v1";
 
-// Local Phase-1 backend — history API lives here regardless of which cloud
+// Local Phase-1 backend - history API lives here regardless of which cloud
 // backend is used for current telemetry.
 const LOCAL_API_BASE = "http://localhost:8000/api/v1";
 
 // How often to poll current telemetry (ms)
 const POLL_INTERVAL_MS = 3000;
 
-// How often to refresh history (ms) — slightly slower to reduce load
+// How often to refresh history (ms) - slightly slower to reduce load
 const HISTORY_POLL_INTERVAL_MS = 5000;
 
 // How often to refresh anomaly ML results (ms).
@@ -34,8 +34,8 @@ const DECISION_POLL_INTERVAL_MS = 10000;
  * expected by SensorChart (keys: time, temp, fuelPct, batteryPct, powerKW,
  * genLoadPct, chpHeatKW).
  *
- * @param {Object} snapshot  — one entry from /history response
- * @returns {Object}         — chart-ready data point
+ * @param {Object} snapshot  - one entry from /history response
+ * @returns {Object}         - chart-ready data point
  */
 export function formatHistoryForCharts(snapshot) {
   // Extract HH:MM:SS from ISO timestamp "2026-09-07T07:01:33Z"
@@ -54,7 +54,7 @@ export function formatHistoryForCharts(snapshot) {
     batteryPct:  snapshot.battery         ?? null,
     powerKW:     snapshot.powerConsumption ?? null,
     genLoadPct:  snapshot.generatorLoad   ?? null,
-    // Bharati-specific (not present in local backend — leave null gracefully)
+    // Bharati-specific (not present in local backend - leave null gracefully)
     chpHeatKW:   snapshot.chpHeatKW       ?? null,
     // Extra fields available for future phases
     windSpeed:   snapshot.windSpeed       ?? null,
@@ -356,8 +356,8 @@ export function TelemetryProvider({ children }) {
       let alerts = prev.alerts;
       if (Array.isArray(apiData.alerts) && apiData.alerts.length) {
         alerts = apiData.alerts.map((a) => {
-          let currentValue = '—';
-          let threshold    = '—';
+          let currentValue = '-';
+          let threshold    = '-';
           if (a.metadata) {
             const cvMatch = a.metadata.match(/Current:\s*([^|]+)/);
             const thMatch = a.metadata.match(/Threshold:\s*(.+)/);
@@ -447,7 +447,7 @@ export function TelemetryProvider({ children }) {
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
-      // Backend returns { status, station } — apply the authoritative state
+      // Backend returns { status, station } - apply the authoritative state
       if (json.station) applyApiResponse(json.station);
     } catch (err) {
       console.warn("[TelemetryContext] POST telemetry failed:", err);
@@ -468,7 +468,7 @@ export function TelemetryProvider({ children }) {
       const water = apiData.water            ?? prev.water;
       const power = apiData.powerConsumption ?? prev.powerConsumption;
 
-      // ── environment{} — use API's full nested object, fall back field-by-field
+      // ── environment{} - use API's full nested object, fall back field-by-field
       const apiEnv = apiData.environment;
       const environment = apiEnv ? {
         ...prev.environment,
@@ -486,7 +486,7 @@ export function TelemetryProvider({ children }) {
         snowAccumulation24h:  apiEnv.snowAccumulation24h  ?? prev.environment?.snowAccumulation24h,
       } : prev.environment;
 
-      // ── energy{} — use API's full nested object (includes generators[])
+      // ── energy{} - use API's full nested object (includes generators[])
       const apiEnergy = apiData.energy;
       const energy = apiEnergy ? {
         ...prev.energy,
@@ -510,7 +510,7 @@ export function TelemetryProvider({ children }) {
           : prev.energy?.generators ?? [],
       } : prev.energy;
 
-      // ── resources{} — use API's full nested object
+      // ── resources{} - use API's full nested object
       const apiRes = apiData.resources;
       const resources = apiRes ? {
         ...prev.resources,
@@ -533,12 +533,12 @@ export function TelemetryProvider({ children }) {
         overallReserveSafetyMargin: apiRes.overallReserveSafetyMargin ?? prev.resources?.overallReserveSafetyMargin,
       } : prev.resources;
 
-      // ── equipment[] — API already returns UI-ready shape (id, name, category, status, etc.)
+      // ── equipment[] - API already returns UI-ready shape (id, name, category, status, etc.)
       const equipment = Array.isArray(apiData.equipment) && apiData.equipment.length
         ? apiData.equipment
         : prev.equipment;
 
-      // ── alerts[] — API already returns UI-ready shape (id, type, severity, message, etc.)
+      // ── alerts[] - API already returns UI-ready shape (id, type, severity, message, etc.)
       const alerts = Array.isArray(apiData.alerts) && apiData.alerts.length
         ? apiData.alerts.map(a => ({
             ...a,
@@ -547,22 +547,22 @@ export function TelemetryProvider({ children }) {
           }))
         : prev.alerts;
 
-      // ── historicalData[] — live 24h time-series from API replaces static data
+      // ── historicalData[] - live 24h time-series from API replaces static data
       const historicalData = Array.isArray(apiData.historicalData) && apiData.historicalData.length
         ? apiData.historicalData
         : prev.historicalData;
 
-      // ── Specialised subsystems — pass through directly if present
+      // ── Specialised subsystems - pass through directly if present
       const aerodynamicStructure = apiData.aerodynamicStructure ?? prev.aerodynamicStructure;
       const isroEarthStation     = apiData.isroEarthStation     ?? prev.isroEarthStation;
       const sciencePayloads      = Array.isArray(apiData.sciencePayloads) && apiData.sciencePayloads.length
         ? apiData.sciencePayloads
         : prev.sciencePayloads;
 
-      // ── crewCapacity — API returns full object {current, maxWinter, maxSummer}
+      // ── crewCapacity - API returns full object {current, maxWinter, maxSummer}
       const crewCapacity = apiData.crewCapacity ?? prev.crewCapacity;
 
-      // ── coordinates & map pin — pass through directly
+      // ── coordinates & map pin - pass through directly
       const coordinates   = apiData.coordinates   ?? prev.coordinates;
       const mapCoordinates = apiData.mapCoordinates ?? prev.mapCoordinates;
 
@@ -671,7 +671,7 @@ export function TelemetryProvider({ children }) {
     });
   }, [updateMaitriField, updateBharatiField]);
 
-  // ─── History polling: Maitri — fetches from local Phase-1 backend ─────────
+  // ─── History polling: Maitri - fetches from local Phase-1 backend ─────────
   useEffect(() => {
     let cancelled = false;
 
@@ -685,7 +685,7 @@ export function TelemetryProvider({ children }) {
           setMaitriHistory(json.history.map(formatHistoryForCharts));
         }
       } catch {
-        // Local backend unavailable — keep whatever history we already have
+        // Local backend unavailable - keep whatever history we already have
       }
     };
 
@@ -697,7 +697,7 @@ export function TelemetryProvider({ children }) {
     };
   }, []);
 
-  // ─── History polling: Bharati — fetches from local Phase-1 backend ──────
+  // ─── History polling: Bharati - fetches from local Phase-1 backend ──────
   useEffect(() => {
     let cancelled = false;
 
@@ -711,7 +711,7 @@ export function TelemetryProvider({ children }) {
           setBharatiHistory(json.history.map(formatHistoryForCharts));
         }
       } catch {
-        // Local backend unavailable — keep whatever history we already have
+        // Local backend unavailable - keep whatever history we already have
       }
     };
 
@@ -723,7 +723,7 @@ export function TelemetryProvider({ children }) {
     };
   }, []);
 
-  // ─── Anomaly polling: Maitri — IsolationForest results from local backend ──
+  // ─── Anomaly polling: Maitri - IsolationForest results from local backend ──
   useEffect(() => {
     let cancelled = false;
 
@@ -733,12 +733,12 @@ export function TelemetryProvider({ children }) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         if (cancelled) return;
-        // Accept both LEARNING and ACTIVE responses — store the full object
+        // Accept both LEARNING and ACTIVE responses - store the full object
         if (json && json.station === 'maitri') {
           setMaitriAnomaly(json);
         }
       } catch {
-        // Backend unavailable — keep the last successfully received result (no-op)
+        // Backend unavailable - keep the last successfully received result (no-op)
       }
     };
 
@@ -750,7 +750,7 @@ export function TelemetryProvider({ children }) {
     };
   }, []);
 
-  // ─── Anomaly polling: Bharati — IsolationForest results from local backend ─
+  // ─── Anomaly polling: Bharati - IsolationForest results from local backend ─
   useEffect(() => {
     let cancelled = false;
 
@@ -764,7 +764,7 @@ export function TelemetryProvider({ children }) {
           setBharatiAnomaly(json);
         }
       } catch {
-        // Backend unavailable — keep the last successfully received result (no-op)
+        // Backend unavailable - keep the last successfully received result (no-op)
       }
     };
 
@@ -776,7 +776,7 @@ export function TelemetryProvider({ children }) {
     };
   }, []);
 
-  // ─── Forecast polling: Maitri — Phase 4B predictive engine ────────────────
+  // ─── Forecast polling: Maitri - Phase 4B predictive engine ────────────────
   useEffect(() => {
     let cancelled = false;
 
@@ -790,7 +790,7 @@ export function TelemetryProvider({ children }) {
           setMaitriForecast(json);
         }
       } catch {
-        // Backend unavailable — preserve last known successful result
+        // Backend unavailable - preserve last known successful result
       }
     };
 
@@ -802,7 +802,7 @@ export function TelemetryProvider({ children }) {
     };
   }, []);
 
-  // ─── Forecast polling: Bharati — Phase 4B predictive engine ───────────────
+  // ─── Forecast polling: Bharati - Phase 4B predictive engine ───────────────
   useEffect(() => {
     let cancelled = false;
 
@@ -816,7 +816,7 @@ export function TelemetryProvider({ children }) {
           setBharatiForecast(json);
         }
       } catch {
-        // Backend unavailable — preserve last known successful result
+        // Backend unavailable - preserve last known successful result
       }
     };
 
@@ -828,7 +828,7 @@ export function TelemetryProvider({ children }) {
     };
   }, []);
 
-  // ─── Decision polling: Maitri — Phase 5B operational intelligence ────────
+  // ─── Decision polling: Maitri - Phase 5B operational intelligence ────────
   useEffect(() => {
     let cancelled = false;
 
@@ -842,7 +842,7 @@ export function TelemetryProvider({ children }) {
           setMaitriDecision(json);
         }
       } catch {
-        // Backend unavailable — preserve last known successful result
+        // Backend unavailable - preserve last known successful result
       }
     };
 
@@ -854,7 +854,7 @@ export function TelemetryProvider({ children }) {
     };
   }, []);
 
-  // ─── Decision polling: Bharati — Phase 5B operational intelligence ───────
+  // ─── Decision polling: Bharati - Phase 5B operational intelligence ───────
   useEffect(() => {
     let cancelled = false;
 
@@ -868,7 +868,7 @@ export function TelemetryProvider({ children }) {
           setBharatiDecision(json);
         }
       } catch {
-        // Backend unavailable — preserve last known successful result
+        // Backend unavailable - preserve last known successful result
       }
     };
 
@@ -1000,3 +1000,4 @@ export function useTelemetry() {
   }
   return context;
 }
+

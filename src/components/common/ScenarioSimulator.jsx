@@ -23,6 +23,7 @@ import {
   ListOrdered,
   Flame,
   Snowflake,
+  BarChart3,
 } from 'lucide-react';
 
 const LOCAL_API_BASE = import.meta.env.VITE_LOCAL_API_URL || "http://localhost:8000/api/v1";
@@ -327,7 +328,7 @@ export default function ScenarioSimulator({ stationId = 'maitri', stationName = 
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs">
             <span className="text-slate-300 font-semibold flex items-center gap-1.5">
-              <Thermometer className="w-3.5 h-3.5 text-indigo-400" />
+              <Thermometer className="w-3.5 h-3.5 text-cyan-400" />
               Temperature Δ
             </span>
             <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${
@@ -489,7 +490,7 @@ export default function ScenarioSimulator({ stationId = 'maitri', stationName = 
         <div className="space-y-6 pt-4 border-t border-polar-800">
           <div className="flex items-center justify-between">
             <h4 className="text-sm sm:text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <span>📊</span>
+              <BarChart3 className="w-4 h-4 text-cyan-400" />
               SIMULATION RESULTS: BASELINE → SIMULATED IMPACT
             </h4>
             <span className="text-[11px] text-cyan-400">
@@ -503,7 +504,7 @@ export default function ScenarioSimulator({ stationId = 'maitri', stationName = 
             <div className="p-4 rounded-xl bg-polar-950/60 border border-polar-850 space-y-2">
               <div className="flex items-center justify-between text-slate-400 text-xs">
                 <span className="uppercase font-semibold flex items-center gap-1.5">
-                  <Thermometer className="w-3.5 h-3.5 text-indigo-400" />
+                  <Thermometer className="w-3.5 h-3.5 text-cyan-400" />
                   Temperature
                 </span>
                 <span className={`text-[11px] font-bold ${
@@ -613,7 +614,7 @@ export default function ScenarioSimulator({ stationId = 'maitri', stationName = 
                     GENERATOR MICROGRID STRESS
                   </span>
                 </div>
-                <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${stressBadge}`}>
+                <span className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${stressBadge}`}>
                   {simulationResult.generator?.stressLevel} STRESS
                 </span>
               </div>
@@ -667,7 +668,7 @@ export default function ScenarioSimulator({ stationId = 'maitri', stationName = 
                     SYNTHESIZED SCENARIO RISK
                   </span>
                 </div>
-                <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${riskConfig.badge}`}>
+                <span className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${riskConfig.badge}`}>
                   {simulationResult.risk?.severity} RISK
                 </span>
               </div>

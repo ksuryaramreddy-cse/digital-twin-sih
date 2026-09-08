@@ -1,20 +1,20 @@
-"""
+﻿"""
 test_phase4a.py
 ===============
-Phase 4A.1 — Comprehensive Forecast Reliability & Time-Axis Verification Suite.
+Phase 4A.1 - Comprehensive Forecast Reliability & Time-Axis Verification Suite.
 
 Tests:
-  TEST 1  — PERFECT LINEAR DATA (ratePerHour = -1.0 %/h, exact 24h mathematical forecast)
-  TEST 2  — DUPLICATE TIMESTAMPS (deduplication, latest value wins, no artificial time)
-  TEST 3  — INSUFFICIENT TIME SPAN (30 samples within 5s -> LEARNING status)
-  TEST 4  — BATTERY BOUNDS (clamped safely within 0 <= forecast <= 100)
-  TEST 5  — FUEL BOUNDS (clamped safely within 0 <= forecast <= 100)
-  TEST 6  — POWER BOUNDS (clamped safely within forecast >= 0)
-  TEST 7  — R² VALIDATION & CONFIDENCE (HIGH >= 0.80, MEDIUM >= 0.50, LOW < 0.50)
-  TEST 8  — FUEL AUTONOMY (real rate, autonomy = current / |rate|, null for stable/increasing)
-  TEST 9  — STATION INDEPENDENCE (separate controlled histories, zero cross-talk)
-  TEST 10 — EXISTING APIs (GET stations, history, anomaly, POST telemetry)
-  TEST 11 — BAD DATA HANDLING (missing keys, NaN, Infinity, invalid timestamps)
+  TEST 1  - PERFECT LINEAR DATA (ratePerHour = -1.0 %/h, exact 24h mathematical forecast)
+  TEST 2  - DUPLICATE TIMESTAMPS (deduplication, latest value wins, no artificial time)
+  TEST 3  - INSUFFICIENT TIME SPAN (30 samples within 5s -> LEARNING status)
+  TEST 4  - BATTERY BOUNDS (clamped safely within 0 <= forecast <= 100)
+  TEST 5  - FUEL BOUNDS (clamped safely within 0 <= forecast <= 100)
+  TEST 6  - POWER BOUNDS (clamped safely within forecast >= 0)
+  TEST 7  - R² VALIDATION & CONFIDENCE (HIGH >= 0.80, MEDIUM >= 0.50, LOW < 0.50)
+  TEST 8  - FUEL AUTONOMY (real rate, autonomy = current / |rate|, null for stable/increasing)
+  TEST 9  - STATION INDEPENDENCE (separate controlled histories, zero cross-talk)
+  TEST 10 - EXISTING APIs (GET stations, history, anomaly, POST telemetry)
+  TEST 11 - BAD DATA HANDLING (missing keys, NaN, Infinity, invalid timestamps)
 """
 
 import json
@@ -46,7 +46,7 @@ def run_unit_tests():
     print("=" * 65)
 
     # -------------------------------------------------------------
-    # TEST 1 — PERFECT LINEAR DATA
+    # TEST 1 - PERFECT LINEAR DATA
     # -------------------------------------------------------------
     print("\n--> TEST 1: PERFECT LINEAR DATA")
     base_t = datetime(2026, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
@@ -70,7 +70,7 @@ def run_unit_tests():
     print("TEST 1 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 2 — DUPLICATE TIMESTAMPS
+    # TEST 2 - DUPLICATE TIMESTAMPS
     # -------------------------------------------------------------
     print("\n--> TEST 2: DUPLICATE TIMESTAMPS")
     # Same timestamp 10:00:00 -> 80, 79, 78 (78 should win)
@@ -100,7 +100,7 @@ def run_unit_tests():
     print("TEST 2 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 3 — INSUFFICIENT TIME SPAN (< 0.01h / 36s)
+    # TEST 3 - INSUFFICIENT TIME SPAN (< 0.01h / 36s)
     # -------------------------------------------------------------
     print("\n--> TEST 3: INSUFFICIENT TIME SPAN")
     # 30 samples all within 5 seconds
@@ -127,7 +127,7 @@ def run_unit_tests():
     print("TEST 3 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 4 — BATTERY BOUNDS (0 <= forecast <= 100)
+    # TEST 4 - BATTERY BOUNDS (0 <= forecast <= 100)
     # -------------------------------------------------------------
     print("\n--> TEST 4: BATTERY BOUNDS")
     # Strong drop: battery drops by 5% per hour from 100 to 0 (would extrapolate to -120% at +24h)
@@ -150,7 +150,7 @@ def run_unit_tests():
     print("TEST 4 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 5 — FUEL BOUNDS (0 <= forecast <= 100)
+    # TEST 5 - FUEL BOUNDS (0 <= forecast <= 100)
     # -------------------------------------------------------------
     print("\n--> TEST 5: FUEL BOUNDS")
     # Strong drop: fuel drops by 4% per hour
@@ -172,7 +172,7 @@ def run_unit_tests():
     print("TEST 5 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 6 — POWER BOUNDS (forecast >= 0)
+    # TEST 6 - POWER BOUNDS (forecast >= 0)
     # -------------------------------------------------------------
     print("\n--> TEST 6: POWER BOUNDS")
     # Decreasing power: 10 kW dropping by 1 kW per hour (extrapolating negative)
@@ -193,7 +193,7 @@ def run_unit_tests():
     print("TEST 6 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 7 — R² VALIDATION & CONFIDENCE
+    # TEST 7 - R² VALIDATION & CONFIDENCE
     # -------------------------------------------------------------
     print("\n--> TEST 7: R² VALIDATION & CONFIDENCE")
     # Clean linear
@@ -214,7 +214,7 @@ def run_unit_tests():
     print("TEST 7 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 8 — FUEL AUTONOMY
+    # TEST 8 - FUEL AUTONOMY
     # -------------------------------------------------------------
     print("\n--> TEST 8: FUEL AUTONOMY")
     # Rate = -1.0 %/h, current fuel = 76.0% -> autonomy = 76.0 hours
@@ -232,7 +232,7 @@ def run_unit_tests():
     print("TEST 8 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 9 — STATION INDEPENDENCE
+    # TEST 9 - STATION INDEPENDENCE
     # -------------------------------------------------------------
     print("\n--> TEST 9: STATION INDEPENDENCE")
     maitri_controlled = [
@@ -268,7 +268,7 @@ def run_unit_tests():
     print("TEST 9 PASSED [PASS]")
 
     # -------------------------------------------------------------
-    # TEST 11 — BAD DATA HANDLING (unit level)
+    # TEST 11 - BAD DATA HANDLING (unit level)
     # -------------------------------------------------------------
     print("\n--> TEST 11: BAD DATA HANDLING")
     dirty_history = list(maitri_controlled[:22])
@@ -295,7 +295,7 @@ def run_http_tests():
     print("=" * 65)
 
     # -------------------------------------------------------------
-    # TEST 10 — EXISTING APIs
+    # TEST 10 - EXISTING APIs
     # -------------------------------------------------------------
     print("\n--> TEST 10: EXISTING APIs")
     r_m = requests.get(f"{BASE_URL}/api/v1/stations/maitri")
@@ -341,3 +341,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--unit-only":
         sys.exit(0)
     run_http_tests()
+

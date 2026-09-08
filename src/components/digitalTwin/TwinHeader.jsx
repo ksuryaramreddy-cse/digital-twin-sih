@@ -39,7 +39,7 @@ export default function TwinHeader({ maitri, bharati }) {
             </span>
             
             {/* Live Synchronized Badge */}
-            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full font-mono text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20">
+            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-md font-mono text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>

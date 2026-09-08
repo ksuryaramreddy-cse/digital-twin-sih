@@ -1,4 +1,4 @@
-# CLAUDE PROJECT SUMMARY: Antarctic Indian Polar Digital Twin (AIP-DT)
+﻿# CLAUDE PROJECT SUMMARY: Antarctic Indian Polar Digital Twin (AIP-DT)
 
 > **Purpose of this file:** Complete onboarding reference for any Claude agent
 > session. Read this first before touching any code. It explains the project
@@ -12,7 +12,7 @@
 | Field | Value |
 |---|---|
 | Project name | Antarctic Indian Polar Digital Twin (AIP-DT) |
-| Internal code | PS 26060 — Antarctica Command Twin |
+| Internal code | PS 26060 - Antarctica Command Twin |
 | Sponsor | Indian Antarctic Research Program (NCPOR / NCAOR) |
 | Framework | Vite + React 18 (NOT Next.js) |
 | Language | JavaScript / JSX (no TypeScript) |
@@ -24,7 +24,7 @@
 | Routing | React Router v6 |
 
 The app runs entirely in the browser as a Vite SPA. There is **no Next.js, no
-server-side rendering, no server/server.js, and no src/lib/maitri-data.ts** —
+server-side rendering, no server/server.js, and no src/lib/maitri-data.ts** -
 all of which were mentioned in an earlier brief but do not exist in this repo.
 
 ---
@@ -147,7 +147,7 @@ Defined in `src/App.jsx`. All routes are wrapped in `TelemetryProvider` then
 ### 4.1 Static Baseline (`src/data/stationData.js`)
 
 Exports two large objects: `MAITRI` and `BHARATI`. These are the **static
-baselines** — they define the starting/reset values. They are NOT the live
+baselines** - they define the starting/reset values. They are NOT the live
 state. Key flat scalar fields that the backend mirrors:
 
 ```
@@ -167,19 +167,19 @@ subsystems (`lakePriyadarshini`, `sciencePayloads` for Maitri;
 
 **This is the single source of truth for all live UI state.**
 
-- `maitri` state — driven by polling `GET /api/v1/stations/maitri` every 3s
-- `bharati` state — driven by polling `GET /api/v1/stations/bharati` every 3s
+- `maitri` state - driven by polling `GET /api/v1/stations/maitri` every 3s
+- `bharati` state - driven by polling `GET /api/v1/stations/bharati` every 3s
 - Both start as `cloneState(MAITRI)` / `cloneState(BHARATI)` on mount, then
   are overwritten by the first successful poll
 
-### 4.3 Backend State (`backend/main.py` — `STATIONS_STORE`)
+### 4.3 Backend State (`backend/main.py` - `STATIONS_STORE`)
 
 In-memory Python dict. A background `asyncio` task (`telemetry_tick_loop`)
 runs every 4 seconds and applies micro-drift to all fields. The frontend polls
-this every 3 seconds. The backend is authoritative — whatever value it holds
+this every 3 seconds. The backend is authoritative - whatever value it holds
 is what the frontend will display within 3 seconds.
 
-**Field mapping — FastAPI flat fields → React nested state:**
+**Field mapping - FastAPI flat fields → React nested state:**
 
 | FastAPI field | React `maitri.` top-level | React nested |
 |---|---|---|
@@ -191,17 +191,17 @@ is what the frontend will display within 3 seconds.
 | `fuel` | `.fuel` | `.resources.fuelLevelPct` |
 | `water` | `.water` | `.resources.waterLevelPct` |
 | `powerConsumption` | `.powerConsumption` | `.energy.powerConsumptionKW` |
-| `generatorStatus` | — | `.energy.generatorStatus` |
-| `status` | `.status` | — |
-| `riskLevel` | `.riskLevel` | — |
-| `communicationStatus` | `.communicationStatus` | — |
-| `primaryAlert` | `.primaryAlert` | — |
+| `generatorStatus` | - | `.energy.generatorStatus` |
+| `status` | `.status` | - |
+| `riskLevel` | `.riskLevel` | - |
+| `communicationStatus` | `.communicationStatus` | - |
+| `primaryAlert` | `.primaryAlert` | - |
 
 Fields that exist in the React UI but have **no FastAPI equivalent** (kept
 as static local values, not polled):
-- Generator fleet detail (`generators[]` array — individual RPM, coolant temp, etc.)
+- Generator fleet detail (`generators[]` array - individual RPM, coolant temp, etc.)
 - `lakePriyadarshini`, `sciencePayloads`, `aerodynamicStructure`, `isroEarthStation`
-- `historicalData[]` (24h chart data — static, not updated by polling)
+- `historicalData[]` (24h chart data - static, not updated by polling)
 - `crewCapacity`, `coordinates`, `equipment[]`
 
 ---
@@ -230,13 +230,13 @@ The backend merges the dict into `STATIONS_STORE[station_id]` and returns
 **Important:** The backend tick loop runs every 4 seconds and applies micro-
 drift to `temperature` (±0.2), `windSpeed` (±1.0), `battery` (−0.15/tick),
 `fuel` (−0.04/tick), `water` (±0.2), `powerConsumption` (±0.25). So any
-value you POST will drift slightly over subsequent ticks — this is by design.
+value you POST will drift slightly over subsequent ticks - this is by design.
 
 ---
 
 ## 6. All Changes Made (Session History)
 
-### Change Set 1 — Maitri: Replace WebSocket with FastAPI REST polling
+### Change Set 1 - Maitri: Replace WebSocket with FastAPI REST polling
 
 **Files modified:**
 - `src/context/TelemetryContext.jsx`
@@ -246,19 +246,19 @@ value you POST will drift slightly over subsequent ticks — this is by design.
 
 **What changed:**
 
-`TelemetryContext.jsx` — Before these changes the context connected to a
+`TelemetryContext.jsx` - Before these changes the context connected to a
 WebSocket at `ws://localhost:5000/ws/maitri` (via `TelemetryWebSocketService`
 from `services/websocket.js`) to receive Maitri telemetry. That WebSocket
-server does not exist — the only real backend is the FastAPI server on port
+server does not exist - the only real backend is the FastAPI server on port
 8000 which has no WebSocket endpoint.
 
 The WebSocket code was removed entirely and replaced with:
 
-1. `applyApiResponse(apiData)` — a `useCallback` that receives the flat
+1. `applyApiResponse(apiData)` - a `useCallback` that receives the flat
    FastAPI JSON and merges it into the nested `maitri` React state (maps
    `battery` → `energy.batteryLevel`, `fuel` → `resources.fuelLevelPct`, etc.)
 
-2. `updateMaitriField(fieldUpdates)` — a `useCallback` that POSTs a partial
+2. `updateMaitriField(fieldUpdates)` - a `useCallback` that POSTs a partial
    update dict to `POST /api/v1/stations/maitri/telemetry` and on success
    calls `applyApiResponse` with the backend's authoritative response.
 
@@ -267,22 +267,22 @@ The WebSocket code was removed entirely and replaced with:
    to `"LIVE"` and `twinSyncStatus` to `"SYNCHRONIZED"`, and resets to
    `"STALE"` after 10 seconds of silence.
 
-`MaitriPage.jsx` — Added `updateMaitriField` to the destructure from
+`MaitriPage.jsx` - Added `updateMaitriField` to the destructure from
 `useTelemetry()`. Passes it as `onUpdate={updateMaitriField}` to
 `<EnergySection>` and `<ResourcesSection>`.
 
-`EnergySection.jsx` — Added local `EditableField` component (controlled
+`EnergySection.jsx` - Added local `EditableField` component (controlled
 number input + Update button with Saved/Error flash states). Battery
 `MetricCard` is now wrapped in a `flex-col` div with the `EditableField`
 strip below it. POSTs `{ battery: value }`.
 
-`ResourcesSection.jsx` — Same `EditableField` pattern. Fuel and Water
+`ResourcesSection.jsx` - Same `EditableField` pattern. Fuel and Water
 `MetricCard`s each get an editable strip. POSTs `{ fuel: value }` or
 `{ water: value }`.
 
 ---
 
-### Change Set 2 — Bharati: Same polling integration
+### Change Set 2 - Bharati: Same polling integration
 
 **Files modified:**
 - `src/context/TelemetryContext.jsx`
@@ -298,20 +298,20 @@ polling pattern as Maitri.
 
 Added to `TelemetryContext.jsx`:
 - `bharatiConnectionStatus` + `bharatiSyncStatus` state + `bharatiStaleTimerRef`
-  (separate from Maitri's equivalents — fully independent)
-- `applyBharatiApiResponse(apiData)` — same mapping logic as Maitri but calls
+  (separate from Maitri's equivalents - fully independent)
+- `applyBharatiApiResponse(apiData)` - same mapping logic as Maitri but calls
   `setBharati` instead of `setMaitri`
-- `updateBharatiField(fieldUpdates)` — POSTs to `.../stations/bharati/telemetry`
+- `updateBharatiField(fieldUpdates)` - POSTs to `.../stations/bharati/telemetry`
 - A second independent polling `useEffect` for Bharati (own interval, own
   cancelled flag, own stale timer)
 - All four new values exposed on the context value object
 
 `BharatiPage.jsx`, `BharatiEnergySection.jsx`, `BharatiResourcesSection.jsx`
-— same pattern as Maitri equivalents.
+- same pattern as Maitri equivalents.
 
 ---
 
-### Change Set 3 — Bug fixes from code audit
+### Change Set 3 - Bug fixes from code audit
 
 **Files modified:**
 - `src/context/TelemetryContext.jsx`
@@ -319,12 +319,12 @@ Added to `TelemetryContext.jsx`:
 
 **Three bugs fixed:**
 
-**Bug 1 — Cosmetic: wrong data source label in DigitalTwinPage**
+**Bug 1 - Cosmetic: wrong data source label in DigitalTwinPage**
 The connection status panel said "LIVE WEBSOCKET" and "SIMULATED TELEMETRY
 VIA WEBSOCKET". Changed to "LIVE (REST POLLING)" and
 "LIVE TELEMETRY VIA REST POLLING (3s)".
 
-**Bug 2 — setScenario wrote local state that polling immediately overwrote**
+**Bug 2 - setScenario wrote local state that polling immediately overwrote**
 The old implementation called `setBharati(prev => updateStationTelemetry(...))`
 which directly mutated React local state. The next poll (≤3s away) would
 overwrite it with backend values, making scenario injection effectively
@@ -340,15 +340,15 @@ Fixed by converting `setScenario` to a `useCallback` that:
   subsequent polls pick up the scenario state correctly
 
 Conditional fields:
-- `communicationStatus` — only included when the scenario defines `commsStatus`
-- `fuel` override — only included when `fuelLevel` is explicitly defined
+- `communicationStatus` - only included when the scenario defines `commsStatus`
+- `fuel` override - only included when `fuelLevel` is explicitly defined
   (only `FUEL_EMERGENCY` scenario has this)
 - Generator detail fields (`gen1Status`, `gen2Status`, `genLoadPct` from
-  `GEN_LOAD_SHED`) are intentionally NOT sent — the backend `STATIONS_STORE`
+  `GEN_LOAD_SHED`) are intentionally NOT sent - the backend `STATIONS_STORE`
   has no schema for these flat fields. The generator fleet cards will not
   reflect GEN-01 OFFLINE until the backend model is extended.
 
-**Bug 3 — resetToNominal wrote local state that polling overwrote**
+**Bug 3 - resetToNominal wrote local state that polling overwrote**
 Same root cause as Bug 2. The old implementation called
 `setMaitri(cloneState(MAITRI))` and `setBharati(cloneState(BHARATI))` which
 lasted only until the next poll.
@@ -373,7 +373,7 @@ backend:
 - Baseline captured: Maitri temp -34.5°C / wind 59.9 / power 49.1 kW
 - KATABATIC_BLIZZARD POSTed: Maitri → temp -43.5°C / wind 97 / power 61 kW
 - After 6 seconds (2 poll cycles): Maitri -43.3°C / 98.0 / 61.3 ✅ (small
-  drift from backend tick, anchored at blizzard level — NOT reverted)
+  drift from backend tick, anchored at blizzard level - NOT reverted)
 - resetToNominal POSTed baseline values
 - After 6 seconds: Maitri -35.4°C / 50.2 / 47.6 ✅ (drifting around baseline)
 
@@ -381,7 +381,7 @@ Scenario injection and reset both survive poll cycles. Fix confirmed working.
 
 ---
 
-## 7. TelemetryContext.jsx — Current Structure (Reference)
+## 7. TelemetryContext.jsx - Current Structure (Reference)
 
 The component body of `TelemetryProvider` now follows this order:
 
@@ -413,12 +413,12 @@ Context value exposed:
   updateBharatiField
 ```
 
-`updateStationTelemetry()` — the old local simulation function — is still
+`updateStationTelemetry()` - the old local simulation function - is still
 defined at module scope (outside the component). It is no longer called by
 any `useEffect` but it is still used conceptually as reference logic. It can
 be removed in a future cleanup.
 
-`websocket.js` — still exists in `services/` but is no longer imported by
+`websocket.js` - still exists in `services/` but is no longer imported by
 `TelemetryContext.jsx`. Safe to delete in a future cleanup.
 
 ---
@@ -426,24 +426,24 @@ be removed in a future cleanup.
 ## 8. EditableField Component Pattern
 
 The same `EditableField` component is duplicated locally in four files:
-- `src/components/maitri/EnergySection.jsx` — battery
-- `src/components/maitri/ResourcesSection.jsx` — fuel, water
-- `src/components/bharati/BharatiEnergySection.jsx` — battery
-- `src/components/bharati/BharatiResourcesSection.jsx` — fuel, water
+- `src/components/maitri/EnergySection.jsx` - battery
+- `src/components/maitri/ResourcesSection.jsx` - fuel, water
+- `src/components/bharati/BharatiEnergySection.jsx` - battery
+- `src/components/bharati/BharatiResourcesSection.jsx` - fuel, water
 
 It is NOT a shared component (no separate file). Props:
 `label`, `fieldKey`, `currentValue`, `unit`, `min`, `max`, `onUpdate`
 
 Behavior:
-- Controlled input (`value={draft}`) — sends `parseFloat(draft)`, never a
+- Controlled input (`value={draft}`) - sends `parseFloat(draft)`, never a
   stale value
-- `useEffect` resets `draft` to `''` when `currentValue` changes (safe —
+- `useEffect` resets `draft` to `''` when `currentValue` changes (safe -
   only resets if user hasn't typed, since draft starts at `''`)
 - Client-side range validation before any fetch
 - `setSending(true)` disables the button during in-flight request
 - Flash states: `'ok'` → green "Saved" for 1.5s, `'err'` → red "Error" for
   1.5s (covers both network failure and out-of-range input)
-- `onUpdate` is optional — if not passed, the strip does not render (graceful
+- `onUpdate` is optional - if not passed, the strip does not render (graceful
   degradation if the component is reused in a non-editable context)
 
 ---
@@ -478,36 +478,36 @@ Fields in scenario mods that `setScenario` maps to POST payload:
 
 ## 10. Known Limitations & Future Work
 
-1. **Generator fleet detail not scenario-injectable** — `GEN_LOAD_SHED` has
+1. **Generator fleet detail not scenario-injectable** - `GEN_LOAD_SHED` has
    `gen1Status: "OFFLINE"` etc. but `STATIONS_STORE` in `main.py` has no
    such fields. To make this work, the backend would need to store and return
    per-generator state, and the frontend mapping would need to apply it to
    `energy.generators[]`.
 
-2. **`updateStationTelemetry()` is dead code** — the local simulation
+2. **`updateStationTelemetry()` is dead code** - the local simulation
    function is still defined in `TelemetryContext.jsx` but never called.
    Can be deleted. `services/websocket.js` is also unused.
 
-3. **`historicalData[]` is static** — The 24-hour chart data in the Bharati
+3. **`historicalData[]` is static** - The 24-hour chart data in the Bharati
    and Maitri chart sections uses the static arrays from `stationData.js`.
    It does not update as live values change. A future enhancement would
    append new readings to a rolling time-series buffer on each poll.
 
-4. **`setScenario` resets comms to ONLINE for next poll** — When a scenario
+4. **`setScenario` resets comms to ONLINE for next poll** - When a scenario
    with `commsStatus: "DEGRADED"` is active, the backend does not have
-   a persistent `degraded` state — the tick loop does not touch
+   a persistent `degraded` state - the tick loop does not touch
    `communicationStatus`. So the degraded status will persist until
    `resetToNominal` is called, which is correct behavior. However, if the
    backend is restarted, it resets to `"ONLINE"`.
 
-5. **Battery/fuel continue drifting down even after scenario** — The backend
+5. **Battery/fuel continue drifting down even after scenario** - The backend
    tick always applies `battery -= 0.15` and `fuel -= 0.04` per tick
    regardless of scenario. There is no way to "pause" drain from the frontend.
 
-6. **`VITE_WS_URL` env var** — still present in `.env.example` but is no
+6. **`VITE_WS_URL` env var** - still present in `.env.example` but is no
    longer read by any active code (websocket.js is unused). Safe to remove.
 
-7. **MongoDB is optional** — if `MONGODB_URI` is not reachable, the backend
+7. **MongoDB is optional** - if `MONGODB_URI` is not reachable, the backend
    silently falls back to in-memory only. Telemetry history is lost on restart.
 
 ---
@@ -555,9 +555,10 @@ ENVIRONMENT=development
 MONGODB_URI=mongodb://localhost:27017
 MONGODB_DB_NAME=antarctic_digital_twin
 
-# VITE_WS_URL is no longer used — websocket.js is not imported by any active code
+# VITE_WS_URL is no longer used - websocket.js is not imported by any active code
 ```
 
 ---
 
 *Last updated: August 2026. Reflects all changes through Change Set 3.*
+

@@ -43,7 +43,7 @@ export default function BharatiChartsSection({ hourlyTrends = [] }) {
               Temperature • Fuel Depletion (18%) • Battery Charge (68%) • Energy Consumption & CHP
               {bharatiHistory.length > 0 && (
                 <span className="ml-2 text-sky-400">
-                  — LIVE · {bharatiHistory.length} readings
+                  - LIVE · {bharatiHistory.length} readings
                 </span>
               )}
             </p>

@@ -120,7 +120,7 @@ export default function TwinStationCards({ maitri, bharati }) {
                 {/* Weather */}
                 <div className="flex items-center justify-between p-2 rounded-lg bg-polar-900/50 border border-polar-800 hover:bg-polar-900 transition">
                   <div className="flex items-center space-x-3 text-slate-300">
-                    <CloudSun className="w-5 h-5 text-purple-400" />
+                    <CloudSun className="w-5 h-5 text-sky-400" />
                     <span>Weather</span>
                   </div>
                   <span className="text-sm font-bold text-white text-right max-w-[200px] truncate">{weatherCondition}</span>

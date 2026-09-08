@@ -79,23 +79,6 @@
   background-image: radial-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px);
 }
 
-/* Glow Utilities */
-.text-glow-cyan {
-  text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
-}
-
-.text-glow-emerald {
-  text-shadow: 0 0 8px rgba(16, 231, 150, 0.6);
-}
-
-.text-glow-amber {
-  text-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
-}
-
-.text-glow-rose {
-  text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);
-}
-
 /* Radar Scan Utility */
 .radar-grid {
   background: 

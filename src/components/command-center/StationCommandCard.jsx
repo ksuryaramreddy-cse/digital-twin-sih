@@ -10,6 +10,7 @@ import {
   TrendingDown,
   Minus,
   Brain,
+  Building2,
   ShieldCheck,
   AlertTriangle,
   ShieldAlert,
@@ -73,23 +74,23 @@ export default function StationCommandCard({ station }) {
   // Safe resource values
   const batteryVal = telemetry.battery !== null && telemetry.battery !== undefined
     ? `${Number(telemetry.battery).toFixed(1)}%`
-    : '—';
+    : '-';
   const fuelVal = telemetry.fuel !== null && telemetry.fuel !== undefined
     ? `${Number(telemetry.fuel).toFixed(1)}%`
-    : '—';
+    : '-';
   const powerVal = telemetry.powerConsumption !== null && telemetry.powerConsumption !== undefined
     ? `${Number(telemetry.powerConsumption).toFixed(1)} kW`
-    : '—';
+    : '-';
   const tempVal = telemetry.temperature !== null && telemetry.temperature !== undefined
     ? `${Number(telemetry.temperature).toFixed(1)} °C`
-    : '—';
+    : '-';
 
   // Anomaly details
   const anomalyStatus = anomaly.status || 'LOADING';
   const anomalySeverity = anomaly.severity || (anomalyStatus === 'ACTIVE' ? 'NORMAL' : 'INITIALIZING');
   const anomalyScore = anomaly.anomalyScore !== null && anomaly.anomalyScore !== undefined
     ? Math.round(Number(anomaly.anomalyScore))
-    : '—';
+    : '-';
 
   // Forecast trends
   const batteryTrendInfo = formatTrend(forecast.batteryTrend);
@@ -104,7 +105,7 @@ export default function StationCommandCard({ station }) {
   // Decision details
   const riskScore = decision.riskScore !== null && decision.riskScore !== undefined
     ? Math.round(Number(decision.riskScore))
-    : '—';
+    : '-';
   const decisionSummary = decision.summary || (decision.status === 'LEARNING' ? 'Engine accumulating telemetry history baseline.' : 'Nominal operational status.');
 
   return (
@@ -117,7 +118,7 @@ export default function StationCommandCard({ station }) {
         <div className="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-polar-800">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-xl">🧊</span>
+              <Building2 className="w-5 h-5 text-cyan-400" />
               <h3 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wider">
                 {stationName}
               </h3>
@@ -174,7 +175,7 @@ export default function StationCommandCard({ station }) {
             <div className="p-3 rounded-xl bg-polar-950/60 border border-polar-850">
               <div className="flex items-center justify-between text-slate-400 text-[10px] uppercase mb-1">
                 <span>Temp</span>
-                <Thermometer className="w-3.5 h-3.5 text-indigo-400" />
+                <Thermometer className="w-3.5 h-3.5 text-cyan-400" />
               </div>
               <div className="text-base font-bold text-slate-100">{tempVal}</div>
             </div>
@@ -186,7 +187,7 @@ export default function StationCommandCard({ station }) {
           <div className="flex items-center justify-between text-[11px]">
             <span className="uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-1.5">
               <Radar className="w-3.5 h-3.5 text-cyan-400" />
-              🤖 ANOMALY INTELLIGENCE
+              ANOMALY INTELLIGENCE
             </span>
             <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
               anomalySeverity === 'CRITICAL' ? 'bg-rose-950/80 text-rose-300 border border-rose-500/40' :
@@ -207,7 +208,7 @@ export default function StationCommandCard({ station }) {
           <div className="flex items-center justify-between text-[11px]">
             <span className="uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-1.5">
               <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
-              🔮 FORECAST INTELLIGENCE
+              FORECAST INTELLIGENCE
             </span>
             <span className="text-[10px] text-cyan-300 font-semibold">
               {forecast.status || 'LOADING'}
@@ -261,7 +262,7 @@ export default function StationCommandCard({ station }) {
           <div className="flex items-center justify-between text-[11px]">
             <span className="uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-1.5">
               <Brain className="w-3.5 h-3.5 text-cyan-400" />
-              🧠 DECISION INTELLIGENCE
+              DECISION INTELLIGENCE
             </span>
             <span className="text-slate-300 text-xs">
               Risk Score: <span className="font-bold text-white">{riskScore} / 100</span>

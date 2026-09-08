@@ -64,7 +64,7 @@ export default function StatusBadge({ status, size = "md", pulse = true }) {
     : "text-[11px] px-2 py-0.5";
 
   return (
-    <span className={`inline-flex items-center space-x-1.5 rounded-full font-mono font-semibold border ${style.bg} ${sizeClasses} shadow-sm ${style.glow}`}>
+    <span className={`inline-flex items-center space-x-1.5 rounded-md font-mono font-semibold border ${style.bg} ${sizeClasses} shadow-sm ${style.glow}`}>
       <span className="relative flex h-1.5 w-1.5">
         {pulse && (
           <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${style.dot} opacity-75`}></span>

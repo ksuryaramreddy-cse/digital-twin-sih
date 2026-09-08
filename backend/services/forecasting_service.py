@@ -1,4 +1,4 @@
-"""
+﻿"""
 forecasting_service.py
 ======================
 Predictive forecasting engine for AIP-DT stations.
@@ -21,7 +21,7 @@ Pipeline per station:
 
 Design principles:
 ------------------
-* Stations are ALWAYS analysed independently — Maitri and Bharati never share history.
+* Stations are ALWAYS analysed independently - Maitri and Bharati never share history.
 * Mathematical regression on actual timestamp elapsed hours ensures ratePerHour is real.
 * Fuel autonomy calculated ONLY when fuel trend is meaningfully decreasing (rate < -threshold).
 * No fake AI or black-box ML; mathematically defensible statistical models.
@@ -512,4 +512,5 @@ def forecast_station(
         "temperature": temp_forecast,
         "message": "Forecasts are estimates based on recent observed telemetry trends.",
     }
+
 

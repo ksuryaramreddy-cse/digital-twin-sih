@@ -7,6 +7,7 @@ import {
   ArrowRight,
   Minus,
   CheckCircle2,
+  Scale,
 } from 'lucide-react';
 
 const RISK_WEIGHTS = {
@@ -67,7 +68,7 @@ export default function CrossStationComparison({ comparison }) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-polar-800 gap-2">
         <div>
           <h3 className="text-base sm:text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
-            <span>⚖️</span>
+            <Scale className="w-5 h-5 text-cyan-400" />
             CROSS-STATION OPERATIONAL COMPARISON
           </h3>
           <p className="text-xs text-slate-400">

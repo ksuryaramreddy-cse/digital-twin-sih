@@ -45,25 +45,25 @@ export default function BharatiPage() {
       {/* 6. ALERTS: Low fuel (CRITICAL), Extreme weather, Low battery, Equipment warning, Communication warning */}
       <BharatiAlertsSection initialAlerts={data.alerts} />
 
-      {/* 7. AI OPERATIONAL INTELLIGENCE — real IsolationForest results from local backend */}
+      {/* 7. AI OPERATIONAL INTELLIGENCE - real IsolationForest results from local backend */}
       <AnomalyIntelligenceCard
         anomalyData={bharatiAnomaly}
         stationName="Bharati"
       />
 
-      {/* 8. PREDICTIVE FORECAST INTELLIGENCE — real 24H linear regression & SES trends */}
+      {/* 8. PREDICTIVE FORECAST INTELLIGENCE - real 24H linear regression & SES trends */}
       <PredictiveForecastCard
         forecastData={bharatiForecast}
         stationName="Bharati"
       />
 
-      {/* 9. OPERATIONAL DECISION INTELLIGENCE — multi-engine risk synthesis & prioritized action directives */}
+      {/* 9. OPERATIONAL DECISION INTELLIGENCE - multi-engine risk synthesis & prioritized action directives */}
       <OperationalDecisionCard
         decisionData={bharatiDecision}
         stationName="Bharati"
       />
 
-      {/* 10. WHAT-IF SCENARIO SIMULATOR — interactive deterministic scenario projections */}
+      {/* 10. WHAT-IF SCENARIO SIMULATOR - interactive deterministic scenario projections */}
       <ScenarioSimulator
         stationId="bharati"
         stationName="Bharati"

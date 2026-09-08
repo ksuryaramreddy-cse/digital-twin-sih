@@ -1,4 +1,4 @@
-"""
+﻿"""
 anomaly_detector.py
 ===================
 Multi-sensor anomaly detection for AIP-DT stations.
@@ -21,7 +21,7 @@ Pipeline per station
 
 Design decisions
 ----------------
-* Stations are ALWAYS analysed independently — never pool Maitri + Bharati data.
+* Stations are ALWAYS analysed independently - never pool Maitri + Bharati data.
 * Minimum 30 samples are required before the model activates (LEARNING phase).
 * IsolationForest is retrained from the full rolling history on every request.
   At ≤500 samples this takes < 50 ms and avoids stale-model problems.
@@ -162,7 +162,7 @@ def _severity_from_score(score: float, is_anomaly: bool) -> str:
           (below warning but still flagged) → WARNING
     """
     if not is_anomaly:
-        # Model says inlier — NORMAL unless score is high (borderline)
+        # Model says inlier - NORMAL unless score is high (borderline)
         if score >= SCORE_CRITICAL_THRESHOLD:
             return "WARNING"   # score elevated but model says inlier → cautious
         return "NORMAL"
@@ -182,7 +182,7 @@ def _top_deviation_factors(
     Identify which features deviate most from their historical baseline.
 
     Method: z-score  |  deviation = |current - mean| / std
-    This is purely a statistical explanation — it does NOT claim that
+    This is purely a statistical explanation - it does NOT claim that
     IsolationForest itself ranks feature importance.
 
     Returns the top-N features sorted by absolute deviation (descending).
@@ -238,13 +238,13 @@ def run_anomaly_detection(
 
     Parameters
     ----------
-    station_id       : str   — "maitri" or "bharati"
-    history          : list  — all telemetry snapshots from TELEMETRY_HISTORY
-    latest_snapshot  : dict  — the most recent telemetry snapshot to evaluate
+    station_id       : str   - "maitri" or "bharati"
+    history          : list  - all telemetry snapshots from TELEMETRY_HISTORY
+    latest_snapshot  : dict  - the most recent telemetry snapshot to evaluate
 
     Returns
     -------
-    dict — fully JSON-serialisable response (all NumPy types converted).
+    dict - fully JSON-serialisable response (all NumPy types converted).
     """
     # ------------------------------------------------------------------
     # 1. Extract feature matrix from history
@@ -253,7 +253,7 @@ def run_anomaly_detection(
     n_samples = X.shape[0] if X.ndim == 2 else 0
 
     # ------------------------------------------------------------------
-    # 2. LEARNING phase — not enough data yet
+    # 2. LEARNING phase - not enough data yet
     # ------------------------------------------------------------------
     if n_samples < MINIMUM_SAMPLES:
         return {
@@ -265,7 +265,7 @@ def run_anomaly_detection(
         }
 
     # ------------------------------------------------------------------
-    # 3. Scale features — StandardScaler so no single high-range sensor
+    # 3. Scale features - StandardScaler so no single high-range sensor
     #    (e.g. pressure ~980) dominates the distance computation.
     # ------------------------------------------------------------------
     scaler = StandardScaler()
@@ -328,7 +328,7 @@ def run_anomaly_detection(
     top_factors = _top_deviation_factors(latest_snapshot, history, available_cols)
 
     # ------------------------------------------------------------------
-    # 9. Build response — ensure all values are plain Python types
+    # 9. Build response - ensure all values are plain Python types
     # ------------------------------------------------------------------
     message = (
         "Unusual multi-sensor operational pattern detected"
@@ -349,3 +349,4 @@ def run_anomaly_detection(
         "message":              message,
         "topDeviationFactors":  top_factors,
     }
+

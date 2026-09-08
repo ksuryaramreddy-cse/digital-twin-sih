@@ -6,9 +6,9 @@
  *
  * Props
  * -----
- *   forecastData {object|null}  — raw response from /api/v1/stations/{station_id}/forecast
+ *   forecastData {object|null}  - raw response from /api/v1/stations/{station_id}/forecast
  *                                 null = not yet received (LOADING)
- *   stationName  {string}       — "Maitri" | "Bharati"
+ *   stationName  {string}       - "Maitri" | "Bharati"
  *
  * States rendered
  * ---------------
@@ -19,7 +19,7 @@
  * Design rules
  * ------------
  *   • Matches existing design system: tactical-panel, polar-* classes, font-mono
- *   • Strictly uses real data from backend — never invents or hardcodes forecast values
+ *   • Strictly uses real data from backend - never invents or hardcodes forecast values
  *   • Renders direction indicators: INCREASING (↑), DECREASING (↓), STABLE (→)
  *   • Labels confidence honestly as "Trend Confidence" (R² correlation)
  */
@@ -144,15 +144,15 @@ function ConfidenceTag({ confidence }) {
 // ---------------------------------------------------------------------------
 function LoadingState({ stationName }) {
   return (
-    <div className="tactical-panel rounded-xl border border-purple-500/20">
+    <div className="tactical-panel rounded-xl border border-cyan-500/20">
       {/* Header */}
-      <div className="flex items-center space-x-3 px-5 py-4 border-b border-polar-800 bg-purple-950/20 rounded-t-xl">
-        <div className="p-2 rounded-lg bg-purple-950/70 border border-purple-500/30">
-          <Sparkles className="w-5 h-5 text-purple-400" />
+      <div className="flex items-center space-x-3 px-5 py-4 border-b border-polar-800 bg-cyan-950/20 rounded-t-xl">
+        <div className="p-2 rounded-lg bg-cyan-950/70 border border-cyan-500/30">
+          <Sparkles className="w-5 h-5 text-cyan-400" />
         </div>
         <div>
           <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider">
-            🔮 Predictive Forecast Intelligence
+            Predictive Forecast Intelligence
           </h3>
           <p className="text-[11px] font-mono text-slate-400">
             {stationName ? `${stationName} Station • ` : ''}Next 24 Hours Operational Trend Analysis
@@ -161,11 +161,11 @@ function LoadingState({ stationName }) {
       </div>
       {/* Body */}
       <div className="px-5 py-8 flex flex-col items-center justify-center space-y-3 text-center">
-        <Loader2 className="w-7 h-7 text-purple-500 animate-spin" />
-        <p className="text-sm font-mono text-slate-300">Connecting to predictive forecasting engine…</p>
+        <Loader2 className="w-7 h-7 text-cyan-500 animate-spin" />
+        <p className="text-sm font-mono text-slate-300">Connecting to predictive forecasting engine...</p>
         <p className="text-xs font-mono text-slate-500">
           <span className="inline-flex items-center space-x-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
             <span>Awaiting telemetry trend projection</span>
           </span>
         </p>
@@ -188,26 +188,26 @@ function LearningState({ data, stationName }) {
   const filledCells = Math.min(totalCells, Math.round((used / minimum) * totalCells));
 
   return (
-    <div className="tactical-panel rounded-xl border border-purple-500/30">
+    <div className="tactical-panel rounded-xl border border-cyan-500/30">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-polar-800 bg-purple-950/20 rounded-t-xl">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-polar-800 bg-cyan-950/20 rounded-t-xl">
         <div className="flex items-center space-x-3 min-w-0">
-          <div className="p-2 rounded-lg bg-purple-950/70 border border-purple-500/30">
-            <BookOpen className="w-5 h-5 text-purple-400" />
+          <div className="p-2 rounded-lg bg-cyan-950/70 border border-cyan-500/30">
+            <BookOpen className="w-5 h-5 text-cyan-400" />
           </div>
           <div className="min-w-0">
             <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider truncate">
-              🔮 Predictive Forecast Intelligence
+              Predictive Forecast Intelligence
             </h3>
             <p className="text-[11px] font-mono text-slate-400 truncate">
               {stationName} Station • Forecast Engine Learning
             </p>
           </div>
         </div>
-        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-full font-mono font-semibold border bg-purple-950/70 border-purple-500/40 text-purple-300 text-[11px] px-2.5 py-0.5">
+        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-md font-mono font-semibold border bg-cyan-950/70 border-cyan-500/40 text-cyan-300 text-[11px] px-2.5 py-0.5">
           <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-purple-400" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
           </span>
           <span>LEARNING</span>
         </span>
@@ -223,7 +223,7 @@ function LearningState({ data, stationName }) {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
             <span className="text-slate-400 uppercase tracking-wider">Telemetry Learning</span>
-            <span className="text-purple-300 font-bold">{used} / {minimum} samples</span>
+            <span className="text-cyan-300 font-bold">{used} / {minimum} samples</span>
           </div>
 
           {/* Block-style progress bar */}
@@ -232,7 +232,7 @@ function LearningState({ data, stationName }) {
               <div
                 key={i}
                 className={`h-3 flex-1 rounded-sm transition-all duration-300 ${
-                  i < filledCells ? 'bg-purple-500' : 'bg-polar-800 border border-polar-750'
+                  i < filledCells ? 'bg-cyan-500' : 'bg-polar-800 border border-polar-750'
                 }`}
               />
             ))}
@@ -240,7 +240,7 @@ function LearningState({ data, stationName }) {
 
           <div className="flex justify-between text-[10px] font-mono text-slate-500">
             <span>0</span>
-            <span className="text-purple-400 font-semibold">{pct}%</span>
+            <span className="text-cyan-400 font-semibold">{pct}%</span>
             <span>{minimum} samples required</span>
           </div>
         </div>
@@ -248,7 +248,7 @@ function LearningState({ data, stationName }) {
         {/* Time span information if available */}
         {spanHours != null && minSpanHours != null && (
           <div className="flex items-center space-x-2 text-[11px] font-mono text-slate-400 bg-polar-900/60 rounded-lg p-2.5 border border-polar-800">
-            <Clock className="w-3.5 h-3.5 text-purple-400 flex-shrink-0" />
+            <Clock className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
             <span>
               Recorded Span: <span className="text-slate-200 font-bold">{(spanHours * 60).toFixed(1)} min</span> /{' '}
               <span className="text-slate-400">{(minSpanHours * 60).toFixed(0)} min required</span>
@@ -282,16 +282,16 @@ function ActiveState({ data, stationName }) {
   const autonomyHours = fuel.estimatedAutonomyHours;
 
   return (
-    <div className="tactical-panel rounded-xl border border-purple-500/30">
+    <div className="tactical-panel rounded-xl border border-cyan-500/30">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-purple-500/20 bg-purple-950/20 rounded-t-xl">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-cyan-500/20 bg-cyan-950/20 rounded-t-xl">
         <div className="flex items-center space-x-3 min-w-0">
-          <div className="p-2 rounded-lg bg-polar-900/80 border border-purple-500/30">
-            <Sparkles className="w-5 h-5 text-purple-400" />
+          <div className="p-2 rounded-lg bg-polar-900/80 border border-cyan-500/30">
+            <Sparkles className="w-5 h-5 text-cyan-400" />
           </div>
           <div className="min-w-0">
             <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider flex items-center space-x-2 truncate">
-              <span>🔮 PREDICTIVE FORECAST INTELLIGENCE</span>
+              <span>PREDICTIVE FORECAST INTELLIGENCE</span>
             </h3>
             <p className="text-[11px] font-mono text-slate-400 truncate">
               {stationName} Station • Next 24 Hours • {data.samplesUsed ?? 0} samples analyzed
@@ -300,7 +300,7 @@ function ActiveState({ data, stationName }) {
         </div>
 
         {/* Live Forecast Engine Badge */}
-        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-full font-mono font-semibold border bg-emerald-950/70 border-emerald-500/40 text-emerald-300 text-[11px] px-2.5 py-1">
+        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-md font-mono font-semibold border bg-emerald-950/70 border-emerald-500/40 text-emerald-300 text-[11px] px-2.5 py-1">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
@@ -331,14 +331,14 @@ function ActiveState({ data, stationName }) {
                 <div>
                   <p className="text-[10px] text-slate-500 uppercase tracking-wider">Current</p>
                   <p className="text-lg font-bold text-slate-200">
-                    {typeof battery.current === 'number' ? `${battery.current}%` : '—'}
+                    {typeof battery.current === 'number' ? `${battery.current}%` : '-'}
                   </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-slate-500 mx-1 self-center" />
                 <div className="text-right">
-                  <p className="text-[10px] text-purple-400 uppercase tracking-wider">24H Forecast</p>
-                  <p className="text-lg font-bold text-purple-300">
-                    {typeof battery.forecast === 'number' ? `${battery.forecast}%` : '—'}
+                  <p className="text-[10px] text-cyan-400 uppercase tracking-wider">24H Forecast</p>
+                  <p className="text-lg font-bold text-cyan-300">
+                    {typeof battery.forecast === 'number' ? `${battery.forecast}%` : '-'}
                   </p>
                 </div>
               </div>
@@ -358,13 +358,13 @@ function ActiveState({ data, stationName }) {
                 <span className="text-slate-200 font-semibold">
                   {typeof battery.ratePerHour === 'number'
                     ? `${battery.ratePerHour > 0 ? '+' : ''}${battery.ratePerHour.toFixed(2)} %/hr`
-                    : '—'}
+                    : '-'}
                 </span>
               </div>
               <div className="flex items-center justify-between text-[10px] text-slate-500">
                 <span>R² Correlation:</span>
                 <span className="font-mono text-slate-400">
-                  {typeof battery.rSquared === 'number' ? battery.rSquared.toFixed(2) : '—'}
+                  {typeof battery.rSquared === 'number' ? battery.rSquared.toFixed(2) : '-'}
                 </span>
               </div>
             </div>
@@ -388,14 +388,14 @@ function ActiveState({ data, stationName }) {
                 <div>
                   <p className="text-[10px] text-slate-500 uppercase tracking-wider">Current</p>
                   <p className="text-lg font-bold text-slate-200">
-                    {typeof fuel.current === 'number' ? `${fuel.current}%` : '—'}
+                    {typeof fuel.current === 'number' ? `${fuel.current}%` : '-'}
                   </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-slate-500 mx-1 self-center" />
                 <div className="text-right">
-                  <p className="text-[10px] text-purple-400 uppercase tracking-wider">24H Forecast</p>
-                  <p className="text-lg font-bold text-purple-300">
-                    {typeof fuel.forecast === 'number' ? `${fuel.forecast}%` : '—'}
+                  <p className="text-[10px] text-cyan-400 uppercase tracking-wider">24H Forecast</p>
+                  <p className="text-lg font-bold text-cyan-300">
+                    {typeof fuel.forecast === 'number' ? `${fuel.forecast}%` : '-'}
                   </p>
                 </div>
               </div>
@@ -415,13 +415,13 @@ function ActiveState({ data, stationName }) {
                 <span className="text-slate-200 font-semibold">
                   {typeof fuel.ratePerHour === 'number'
                     ? `${fuel.ratePerHour > 0 ? '+' : ''}${fuel.ratePerHour.toFixed(2)} %/hr`
-                    : '—'}
+                    : '-'}
                 </span>
               </div>
               <div className="flex items-center justify-between text-[10px] text-slate-500">
                 <span>R² Correlation:</span>
                 <span className="font-mono text-slate-400">
-                  {typeof fuel.rSquared === 'number' ? fuel.rSquared.toFixed(2) : '—'}
+                  {typeof fuel.rSquared === 'number' ? fuel.rSquared.toFixed(2) : '-'}
                 </span>
               </div>
             </div>
@@ -439,7 +439,7 @@ function ActiveState({ data, stationName }) {
               ) : (
                 <div className="bg-polar-950/40 border border-polar-800 rounded-lg p-1.5 text-center">
                   <p className="text-[10px] font-mono text-slate-400 leading-tight">
-                    Autonomy stable — no meaningful depletion trend detected
+                    Autonomy stable - no meaningful depletion trend detected
                   </p>
                 </div>
               )}
@@ -464,14 +464,14 @@ function ActiveState({ data, stationName }) {
                 <div>
                   <p className="text-[10px] text-slate-500 uppercase tracking-wider">Current</p>
                   <p className="text-lg font-bold text-slate-200">
-                    {typeof power.current === 'number' ? `${power.current} kW` : '—'}
+                    {typeof power.current === 'number' ? `${power.current} kW` : '-'}
                   </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-slate-500 mx-1 self-center" />
                 <div className="text-right">
-                  <p className="text-[10px] text-purple-400 uppercase tracking-wider">24H Forecast</p>
-                  <p className="text-lg font-bold text-purple-300">
-                    {typeof power.forecast === 'number' ? `${power.forecast} kW` : '—'}
+                  <p className="text-[10px] text-cyan-400 uppercase tracking-wider">24H Forecast</p>
+                  <p className="text-lg font-bold text-cyan-300">
+                    {typeof power.forecast === 'number' ? `${power.forecast} kW` : '-'}
                   </p>
                 </div>
               </div>
@@ -491,13 +491,13 @@ function ActiveState({ data, stationName }) {
                 <span className="text-slate-200 font-semibold">
                   {typeof power.ratePerHour === 'number'
                     ? `${power.ratePerHour > 0 ? '+' : ''}${power.ratePerHour.toFixed(2)} kW/hr`
-                    : '—'}
+                    : '-'}
                 </span>
               </div>
               <div className="flex items-center justify-between text-[10px] text-slate-500">
                 <span>R² Correlation:</span>
                 <span className="font-mono text-slate-400">
-                  {typeof power.rSquared === 'number' ? power.rSquared.toFixed(2) : '—'}
+                  {typeof power.rSquared === 'number' ? power.rSquared.toFixed(2) : '-'}
                 </span>
               </div>
             </div>
@@ -523,14 +523,14 @@ function ActiveState({ data, stationName }) {
                 <div>
                   <p className="text-[10px] text-slate-500 uppercase tracking-wider">Current</p>
                   <p className="text-lg font-bold text-slate-200">
-                    {typeof temp.current === 'number' ? `${temp.current}°C` : '—'}
+                    {typeof temp.current === 'number' ? `${temp.current}°C` : '-'}
                   </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-slate-500 mx-1 self-center" />
                 <div className="text-right">
-                  <p className="text-[10px] text-purple-400 uppercase tracking-wider">Near-Term</p>
-                  <p className="text-lg font-bold text-purple-300">
-                    {typeof temp.forecast === 'number' ? `${temp.forecast}°C` : '—'}
+                  <p className="text-[10px] text-cyan-400 uppercase tracking-wider">Near-Term</p>
+                  <p className="text-lg font-bold text-cyan-300">
+                    {typeof temp.forecast === 'number' ? `${temp.forecast}°C` : '-'}
                   </p>
                 </div>
               </div>
@@ -558,7 +558,7 @@ function ActiveState({ data, stationName }) {
 
         {/* Explainability Footer */}
         <div className="mt-4 pt-3 border-t border-polar-800/80 flex items-start space-x-2.5 text-[11px] font-mono text-slate-400">
-          <Info className="w-4 h-4 text-purple-400/80 flex-shrink-0 mt-0.5" />
+          <Info className="w-4 h-4 text-cyan-400/80 flex-shrink-0 mt-0.5" />
           <div className="space-y-1 leading-relaxed">
             <p className="text-slate-300 font-bold uppercase tracking-wider text-[10px]">
               Forecast Intelligence Architecture
@@ -580,17 +580,17 @@ function ActiveState({ data, stationName }) {
 // Main Export
 // ---------------------------------------------------------------------------
 export default function PredictiveForecastCard({ forecastData, stationName = '' }) {
-  // STATE 1 — LOADING: no forecast data received yet
+  // STATE 1 - LOADING: no forecast data received yet
   if (forecastData === null || forecastData === undefined) {
     return <LoadingState stationName={stationName} />;
   }
 
-  // STATE 2 — LEARNING: backend needs more history samples or elapsed time
+  // STATE 2 - LEARNING: backend needs more history samples or elapsed time
   if (forecastData.status === 'LEARNING') {
     return <LearningState data={forecastData} stationName={stationName} />;
   }
 
-  // STATE 3 — ACTIVE: 4 forecasting metrics ready
+  // STATE 3 - ACTIVE: 4 forecasting metrics ready
   if (forecastData.status === 'ACTIVE') {
     return <ActiveState data={forecastData} stationName={stationName} />;
   }

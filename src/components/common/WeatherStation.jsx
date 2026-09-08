@@ -43,7 +43,7 @@ export default function WeatherStation({ weather, stationName }) {
         <div className="bg-polar-900/80 rounded-lg p-3.5 border border-polar-800 flex items-center justify-between">
           <div>
             <span className="text-[11px] font-mono text-slate-400 block">SURFACE TEMP</span>
-            <span className="text-2xl font-mono font-extrabold text-cyan-400 text-glow-cyan">
+            <span className="text-2xl font-mono font-extrabold text-cyan-400">
               {weather.temperature} <span className="text-sm font-normal text-slate-400">°C</span>
             </span>
             <span className="text-[10px] font-mono text-slate-400 block mt-0.5">
@@ -71,7 +71,7 @@ export default function WeatherStation({ weather, stationName }) {
         <div className="bg-polar-900/80 rounded-lg p-3.5 border border-polar-800 flex items-center justify-between">
           <div>
             <span className="text-[11px] font-mono text-slate-400 block">AIR PRESSURE</span>
-            <span className="text-2xl font-mono font-extrabold text-emerald-400 text-glow-emerald">
+            <span className="text-2xl font-mono font-extrabold text-emerald-400">
               {weather.pressure} <span className="text-sm font-normal text-slate-400">hPa</span>
             </span>
             <span className="text-[10px] font-mono text-slate-400 block mt-0.5">
@@ -85,7 +85,7 @@ export default function WeatherStation({ weather, stationName }) {
         <div className="bg-polar-900/80 rounded-lg p-3.5 border border-polar-800 flex items-center justify-between">
           <div>
             <span className="text-[11px] font-mono text-slate-400 block">SOLAR FLUX</span>
-            <span className="text-2xl font-mono font-extrabold text-amber-400 text-glow-amber">
+            <span className="text-2xl font-mono font-extrabold text-amber-400">
               {weather.solarRadiation} <span className="text-sm font-normal text-slate-400">W/m²</span>
             </span>
             <span className="text-[10px] font-mono text-slate-400 block mt-0.5">

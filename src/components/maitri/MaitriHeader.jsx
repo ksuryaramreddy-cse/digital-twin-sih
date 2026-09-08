@@ -44,7 +44,7 @@ export default function MaitriHeader({
             </span>
             
             {/* Pulsing LIVE Indicator */}
-            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full font-mono text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20">
+            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-md font-mono text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
@@ -105,7 +105,7 @@ export default function MaitriHeader({
               <Activity className="w-3.5 h-3.5 text-emerald-400" />
               <span>Overall Health</span>
             </div>
-            <div className="text-xl font-mono font-bold text-emerald-400 text-glow-emerald mt-1">
+            <div className="text-xl font-mono font-bold text-emerald-400 mt-1">
               {overallHealth}%
             </div>
             <span className="text-[10px] font-mono text-slate-500">All Systems Nominal</span>

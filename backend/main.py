@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import random
 from collections import deque
 from datetime import datetime, timezone
@@ -74,7 +74,7 @@ STATIONS_STORE = {
 }
 
 # ---------------------------------------------------------------------------
-# Rolling telemetry history — max 500 readings per station (auto-evicts oldest)
+# Rolling telemetry history - max 500 readings per station (auto-evicts oldest)
 # ---------------------------------------------------------------------------
 TELEMETRY_HISTORY: dict[str, deque] = {
     "maitri": deque(maxlen=500),
@@ -336,7 +336,7 @@ def get_station_anomaly(station_id: str):
     Multi-sensor anomaly detection using IsolationForest.
 
     Trains on the station's rolling telemetry history and evaluates the latest
-    snapshot.  Stations are kept strictly independent — Maitri history never
+    snapshot.  Stations are kept strictly independent - Maitri history never
     influences Bharati analysis and vice versa.
 
     Returns LEARNING status until MINIMUM_SAMPLES (30) readings are available.
@@ -501,3 +501,4 @@ def analyze_station_with_ai(payload: dict = Body(...)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host=HOST, port=PORT, reload=True)
+

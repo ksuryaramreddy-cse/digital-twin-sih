@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Shield, Radio } from 'lucide-react';
 import { useTelemetry } from '../context/TelemetryContext';
 import { digitalTwinData } from '../data/digitalTwinData';
 import {
@@ -37,8 +38,8 @@ const riskColor = (rl) => {
 const buildMatrix = (m, b) => [
   {
     metric: 'Operational Status',
-    maitri: `${m.status || '—'} (${m.riskLevel || '—'})`,
-    bharati: `${b.status || '—'} (${b.riskLevel || '—'})`,
+    maitri: `${m.status || '-'} (${m.riskLevel || '-'})`,
+    bharati: `${b.status || '-'} (${b.riskLevel || '-'})`,
     variance: 'Synchronized',
     status: 'good',
   },
@@ -51,52 +52,52 @@ const buildMatrix = (m, b) => [
   },
   {
     metric: 'Ambient Surface Temp',
-    maitri: `${m.temperature ?? '—'} °C`,
-    bharati: `${b.temperature ?? '—'} °C`,
+    maitri: `${m.temperature ?? '-'} °C`,
+    bharati: `${b.temperature ?? '-'} °C`,
     variance:
       m.temperature != null && b.temperature != null
         ? `Δ ${(b.temperature - m.temperature).toFixed(1)} °C (Maitri colder)`
-        : '—',
+        : '-',
     status: 'neutral',
   },
   {
     metric: 'Surface Wind Velocity',
-    maitri: `${m.windSpeed ?? '—'} km/h`,
-    bharati: `${b.windSpeed ?? '—'} km/h`,
+    maitri: `${m.windSpeed ?? '-'} km/h`,
+    bharati: `${b.windSpeed ?? '-'} km/h`,
     variance:
       m.windSpeed != null && b.windSpeed != null
         ? `Δ ${(m.windSpeed - b.windSpeed).toFixed(1)} km/h`
-        : '—',
+        : '-',
     status: 'neutral',
   },
   {
     metric: 'Power Grid Demand',
-    maitri: `${m.powerConsumption ?? '—'} kW`,
-    bharati: `${b.powerConsumption ?? '—'} kW`,
+    maitri: `${m.powerConsumption ?? '-'} kW`,
+    bharati: `${b.powerConsumption ?? '-'} kW`,
     variance:
       m.powerConsumption != null && b.powerConsumption != null
         ? `${(m.powerConsumption + b.powerConsumption).toFixed(1)} kW Total Load`
-        : '—',
+        : '-',
     status: 'good',
   },
   {
     metric: 'Fuel Reserves Remaining',
-    maitri: `${m.fuel != null ? m.fuel.toFixed(1) : '—'}% (~${m.resources?.fuelDaysRemaining ?? Math.round((m.fuel ?? 0) * 1.1)} days)`,
-    bharati: `${b.fuel != null ? b.fuel.toFixed(1) : '—'}%`,
+    maitri: `${m.fuel != null ? m.fuel.toFixed(1) : '-'}% (~${m.resources?.fuelDaysRemaining ?? Math.round((m.fuel ?? 0) * 1.1)} days)`,
+    bharati: `${b.fuel != null ? b.fuel.toFixed(1) : '-'}%`,
     variance: b.fuel != null && b.fuel < 25 ? 'Bharati Needs Tanker Resupply' : 'Nominal',
     status: b.fuel != null && b.fuel < 25 ? 'warning' : 'good',
   },
   {
     metric: 'Battery Bank Level',
-    maitri: `${m.battery != null ? m.battery.toFixed(1) : '—'}%`,
-    bharati: `${b.battery != null ? b.battery.toFixed(1) : '—'}%`,
+    maitri: `${m.battery != null ? m.battery.toFixed(1) : '-'}%`,
+    bharati: `${b.battery != null ? b.battery.toFixed(1) : '-'}%`,
     variance: 'Dual Float Charge',
     status: 'good',
   },
   {
     metric: 'Fresh Water Level',
-    maitri: `${m.water != null ? m.water.toFixed(1) : '—'}%`,
-    bharati: `${b.water != null ? b.water.toFixed(1) : '—'}%`,
+    maitri: `${m.water != null ? m.water.toFixed(1) : '-'}%`,
+    bharati: `${b.water != null ? b.water.toFixed(1) : '-'}%`,
     variance: 'Dual Redundancy Types',
     status: 'good',
   },
@@ -109,8 +110,8 @@ const buildMatrix = (m, b) => [
   },
   {
     metric: 'Overall Health',
-    maitri: `${m.overallHealth != null ? m.overallHealth.toFixed(1) : '—'}%`,
-    bharati: `${b.overallHealth != null ? b.overallHealth.toFixed(1) : '—'}%`,
+    maitri: `${m.overallHealth != null ? m.overallHealth.toFixed(1) : '-'}%`,
+    bharati: `${b.overallHealth != null ? b.overallHealth.toFixed(1) : '-'}%`,
     variance: 'Live API computed',
     status: 'good',
   },
@@ -172,7 +173,7 @@ export default function DigitalTwinPage() {
     return commandCenterData.stations.find((s) => s.stationId === 'bharati') || null;
   }, [commandCenterData]);
 
-  // Live comparison matrix — recomputed on every render from current API state
+  // Live comparison matrix - recomputed on every render from current API state
   const liveMatrix = buildMatrix(maitri, bharati);
 
   const [secondsAgo, setSecondsAgo] = useState(0);
@@ -192,7 +193,7 @@ export default function DigitalTwinPage() {
   return (
     <div className="space-y-8 pb-16">
       {/* ═══════════════════════════════════════════════════════════════════════ */}
-      {/* 🇮🇳 ANTARCTIC OPERATIONS COMMAND CENTER (PHASE 6B UI HIERARCHY)        */}
+      {/* ANTARCTIC OPERATIONS COMMAND CENTER (PHASE 6B UI HIERARCHY) */}
       {/* ═══════════════════════════════════════════════════════════════════════ */}
 
       {/* 1. COMMAND CENTER HEADER */}
@@ -211,7 +212,7 @@ export default function DigitalTwinPage() {
       <section aria-label="Station Operations Command Cards" className="space-y-3">
         <div className="flex items-center justify-between pb-1 border-b border-polar-800">
           <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
-            <span>🛡️</span>
+            <Shield className="w-4 h-4 text-cyan-400" />
             POLAR RESEARCH STATION COMMAND CARDS
           </h2>
           <span className="text-xs font-mono text-cyan-400">
@@ -237,13 +238,13 @@ export default function DigitalTwinPage() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════════ */}
-      {/* 🌐 EXISTING DIGITAL TWIN VISUALIZATION & SPATIAL CONTROL LAYER        */}
+      {/* EXISTING DIGITAL TWIN VISUALIZATION & SPATIAL CONTROL LAYER */}
       {/* ═══════════════════════════════════════════════════════════════════════ */}
       <div className="pt-8 border-t border-polar-800 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-polar-800">
           <div>
             <h2 className="text-base sm:text-lg font-mono font-extrabold uppercase tracking-widest text-cyan-400 flex items-center gap-2">
-              <span>📡</span>
+              <Radio className="w-5 h-5 text-cyan-400" />
               CONTINENTAL DIGITAL TWIN & SIMULATION SYSTEM
             </h2>
             <p className="text-xs font-mono text-slate-400">
@@ -285,7 +286,7 @@ export default function DigitalTwinPage() {
                 </span>
               </div>
               <p className="text-[10px] text-slate-400 mt-1">
-                Active telemetry consumer feed via REST polling — Render backend
+                Active telemetry consumer feed via REST polling - Render backend
               </p>
             </div>
 
@@ -334,7 +335,7 @@ export default function DigitalTwinPage() {
             </div>
             <div className="bg-polar-950/60 p-3 rounded-lg border border-polar-800 text-center">
               <span className="text-[10px] text-slate-400 block uppercase">Humidity</span>
-              <span className="text-xs font-bold text-indigo-400">{maitri.humidity} %</span>
+              <span className="text-xs font-bold text-blue-400">{maitri.humidity} %</span>
             </div>
             <div className="bg-polar-950/60 p-3 rounded-lg border border-polar-800 text-center">
               <span className="text-[10px] text-slate-400 block uppercase">Pressure</span>

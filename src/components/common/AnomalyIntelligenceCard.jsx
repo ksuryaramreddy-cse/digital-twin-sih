@@ -5,9 +5,9 @@
  *
  * Props
  * -----
- *   anomalyData  {object|null}  — raw response from GET /api/v1/stations/{id}/anomaly
+ *   anomalyData  {object|null}  - raw response from GET /api/v1/stations/{id}/anomaly
  *                                  null  = not yet received (LOADING)
- *   stationName  {string}       — "Maitri" | "Bharati" (display label only)
+ *   stationName  {string}       - "Maitri" | "Bharati" (display label only)
  *
  * States rendered
  * ---------------
@@ -20,8 +20,8 @@
  * Design rules
  * ------------
  *   • Matches existing design system: tactical-panel, polar-* classes, font-mono
- *   • Uses only Tailwind + Lucide — no new dependencies
- *   • Never invents scores or fake values — only renders what the backend returns
+ *   • Uses only Tailwind + Lucide - no new dependencies
+ *   • Never invents scores or fake values - only renders what the backend returns
  *   • topDeviationFactors are labelled honestly as statistical deviations,
  *     NOT "AI feature importance" or "root cause"
  */
@@ -144,8 +144,8 @@ function AnomalyScoreBar({ score, colorClass }) {
         />
       </div>
       <div className="flex justify-between text-[10px] font-mono text-slate-500">
-        <span>0 — Normal</span>
-        <span>100 — Highly Anomalous</span>
+        <span>0 - Normal</span>
+        <span>100 - Highly Anomalous</span>
       </div>
     </div>
   );
@@ -156,7 +156,7 @@ function DeviationRow({ factor }) {
   const { label, icon: Icon } = featureMeta(factor.feature);
   const devStr = typeof factor.deviation === 'number'
     ? `${factor.deviation.toFixed(2)}σ`
-    : '—';
+    : '-';
   const devHigh = (factor.deviation ?? 0) >= 3;
 
   return (
@@ -236,7 +236,7 @@ function LearningState({ data }) {
           </h3>
           <p className="text-[11px] font-mono text-slate-400">IsolationForest · Establishing normal behaviour profile</p>
         </div>
-        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-full font-mono font-semibold border bg-sky-950/70 border-sky-500/40 text-sky-300 text-[11px] px-2 py-0.5">
+        <span className="flex-shrink-0 inline-flex items-center space-x-1.5 rounded-md font-mono font-semibold border bg-sky-950/70 border-sky-500/40 text-sky-300 text-[11px] px-2.5 py-0.5">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-sky-400" />
@@ -315,7 +315,7 @@ function ActiveState({ data, stationName }) {
         </div>
 
         {/* Severity badge */}
-        <span className={`flex-shrink-0 inline-flex items-center space-x-1.5 rounded-full font-mono font-semibold border text-[11px] px-2.5 py-1 ${scheme.badgeBg}`}>
+        <span className={`flex-shrink-0 inline-flex items-center space-x-1.5 rounded-md font-mono font-semibold border text-[11px] px-2.5 py-1 ${scheme.badgeBg}`}>
           <span className="relative flex h-1.5 w-1.5">
             {severity !== 'NORMAL' && (
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${scheme.dotPing} opacity-75`} />
@@ -365,7 +365,7 @@ function ActiveState({ data, stationName }) {
           </div>
           <div className="bg-polar-900/60 rounded-lg border border-polar-800 px-3 py-2 col-span-2 sm:col-span-1">
             <p className="text-slate-500 uppercase tracking-wider text-[10px]">Samples Used</p>
-            <p className="text-slate-200 font-semibold mt-0.5">{data.samplesUsed ?? '—'}</p>
+            <p className="text-slate-200 font-semibold mt-0.5">{data.samplesUsed ?? '-'}</p>
           </div>
         </div>
 
@@ -388,7 +388,7 @@ function ActiveState({ data, stationName }) {
             </div>
             <p className="text-[10px] font-mono text-slate-600 leading-relaxed">
               These are statistical deviations from the station's learned historical baseline.
-              They indicate which sensors are furthest from normal — not a diagnosis of failure cause.
+              They indicate which sensors are furthest from normal - not a diagnosis of failure cause.
             </p>
           </div>
         )}
@@ -416,24 +416,24 @@ function ActiveState({ data, stationName }) {
 }
 
 // ---------------------------------------------------------------------------
-// Main export — decides which state to render
+// Main export - decides which state to render
 // ---------------------------------------------------------------------------
 export default function AnomalyIntelligenceCard({ anomalyData, stationName = '' }) {
-  // STATE 1 — LOADING: no response received yet
+  // STATE 1 - LOADING: no response received yet
   if (anomalyData === null || anomalyData === undefined) {
     return <LoadingState />;
   }
 
-  // STATE 2 — LEARNING: backend hasn't accumulated enough history
+  // STATE 2 - LEARNING: backend hasn't accumulated enough history
   if (anomalyData.status === 'LEARNING') {
     return <LearningState data={anomalyData} />;
   }
 
-  // STATE 3/4/5 — ACTIVE: NORMAL / WARNING / CRITICAL
+  // STATE 3/4/5 - ACTIVE: NORMAL / WARNING / CRITICAL
   if (anomalyData.status === 'ACTIVE') {
     return <ActiveState data={anomalyData} stationName={stationName} />;
   }
 
-  // Fallback — unknown status from backend, show neutral loading
+  // Fallback - unknown status from backend, show neutral loading
   return <LoadingState />;
 }

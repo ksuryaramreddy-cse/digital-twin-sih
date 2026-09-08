@@ -1,4 +1,4 @@
-"""
+﻿"""
 test_phase5a.py
 ================
 Comprehensive test suite for Phase 5A: Backend Risk & Decision Intelligence Engine.
@@ -48,7 +48,7 @@ from services.decision_engine import (
 class TestPhase5ADecisionEngine(unittest.TestCase):
 
     # -----------------------------------------------------------------------
-    # TEST 1 — Existing APIs
+    # TEST 1 - Existing APIs
     # -----------------------------------------------------------------------
     def test_01_existing_apis(self):
         base = "http://127.0.0.1:8000/api/v1"
@@ -82,7 +82,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
             self.fail(f"POST telemetry failed: {e}")
 
     # -----------------------------------------------------------------------
-    # TEST 2 — Learning Mode
+    # TEST 2 - Learning Mode
     # -----------------------------------------------------------------------
     def test_02_learning_mode(self):
         # Case A: Both LEARNING
@@ -103,7 +103,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertEqual(res_b["forecastStatus"], "LEARNING")
 
     # -----------------------------------------------------------------------
-    # TEST 3 — Active Normal State
+    # TEST 3 - Active Normal State
     # -----------------------------------------------------------------------
     def test_03_active_normal_state(self):
         station = {
@@ -149,7 +149,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertLess(res["riskScore"], 25.0)
 
     # -----------------------------------------------------------------------
-    # TEST 4 — Energy Risk
+    # TEST 4 - Energy Risk
     # -----------------------------------------------------------------------
     def test_04_energy_risk(self):
         station = {"battery": 18.0, "powerConsumption": 55.0}  # < 20% -> +40
@@ -173,7 +173,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertTrue(any("power-shedding" in r["action"].lower() for r in recs))
 
     # -----------------------------------------------------------------------
-    # TEST 5 — Fuel / Resource Risk
+    # TEST 5 - Fuel / Resource Risk
     # -----------------------------------------------------------------------
     def test_05_resource_risk(self):
         station = {"fuel": 12.0, "water": 70.0}  # fuel < 15% -> +35
@@ -196,7 +196,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertTrue(any("fuel conservation" in r["action"].lower() for r in recs))
 
     # -----------------------------------------------------------------------
-    # TEST 6 — Infrastructure Risk & Safety Escalation
+    # TEST 6 - Infrastructure Risk & Safety Escalation
     # -----------------------------------------------------------------------
     def test_06_infrastructure_risk(self):
         station = {
@@ -224,7 +224,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertIn("safety escalation", note.lower())
 
     # -----------------------------------------------------------------------
-    # TEST 7 — Environmental Baselines
+    # TEST 7 - Environmental Baselines
     # -----------------------------------------------------------------------
     def test_07_environmental_baselines(self):
         # Maitri normal baseline around -35°C
@@ -248,7 +248,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertIn(env_extreme["level"], ("HIGH", "CRITICAL"))
 
     # -----------------------------------------------------------------------
-    # TEST 8 — Overall Weighting Formula & Level Mapping
+    # TEST 8 - Overall Weighting Formula & Level Mapping
     # -----------------------------------------------------------------------
     def test_08_overall_weighting(self):
         # Formula: Energy * 0.30 + Resources * 0.25 + Environment * 0.20 + Infrastructure * 0.25
@@ -274,7 +274,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertEqual(risk_level_from_score(100.0), "CRITICAL")
 
     # -----------------------------------------------------------------------
-    # TEST 9 — Station Independence
+    # TEST 9 - Station Independence
     # -----------------------------------------------------------------------
     def test_09_station_independence(self):
         maitri_station = {"stationId": "maitri", "battery": 15.0, "fuel": 10.0, "temperature": -35.0}
@@ -300,7 +300,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
         self.assertNotEqual(res_maitri["riskScore"], res_bharati["riskScore"])
 
     # -----------------------------------------------------------------------
-    # TEST 10 — Invalid Station (HTTP 404)
+    # TEST 10 - Invalid Station (HTTP 404)
     # -----------------------------------------------------------------------
     def test_10_invalid_station(self):
         url = "http://127.0.0.1:8000/api/v1/stations/invalid_station_xyz/decision"
@@ -314,7 +314,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
             self.assertIn("not found", err_data.get("detail", "").lower())
 
     # -----------------------------------------------------------------------
-    # TEST 11 — Bad Data Robustness
+    # TEST 11 - Bad Data Robustness
     # -----------------------------------------------------------------------
     def test_11_bad_data_robustness(self):
         corrupt_station = {
@@ -346,7 +346,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
             self.fail(f"evaluate_station_decision crashed on corrupt data: {e}")
 
     # -----------------------------------------------------------------------
-    # TEST 12 — Backend Live Decision Route
+    # TEST 12 - Backend Live Decision Route
     # -----------------------------------------------------------------------
     def test_12_live_decision_route(self):
         for station in ("maitri", "bharati"):
@@ -365,7 +365,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
                     self.assertIn("forecastStatus", data)
 
     # -----------------------------------------------------------------------
-    # TEST 13 — JSON Serialization
+    # TEST 13 - JSON Serialization
     # -----------------------------------------------------------------------
     def test_13_json_serialization(self):
         states = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
@@ -381,7 +381,7 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
                 self.fail(f"JSON serialization failed for {st} state: {e}")
 
     # -----------------------------------------------------------------------
-    # TEST 14 — Existing System Regression
+    # TEST 14 - Existing System Regression
     # -----------------------------------------------------------------------
     def test_14_existing_system_regression(self):
         # Verify anomaly detector still works independently
@@ -412,3 +412,4 @@ class TestPhase5ADecisionEngine(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
