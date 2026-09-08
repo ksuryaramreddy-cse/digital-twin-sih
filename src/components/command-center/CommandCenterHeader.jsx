@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, ShieldCheck, AlertTriangle, ShieldAlert, Radio } from 'lucide-react';
+import { Activity, ShieldCheck, AlertTriangle, ShieldAlert, Radio, Compass } from 'lucide-react';
 
 /**
  * CommandCenterHeader.jsx
